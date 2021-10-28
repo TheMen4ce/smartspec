@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -39,9 +40,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="prism" width="256" height="256"/>
+        <image name="prism" width="192" height="192"/>
         <namedColor name="background">
-            <color red="0.074509803921568626" green="0.11764705882352941" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.075000002980232239" green="0.11800000071525574" blue="0.19599999487400055" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
