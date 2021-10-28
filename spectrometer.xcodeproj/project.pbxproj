@@ -15,6 +15,7 @@
 		955FFFAB272A8C320041819C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 955FFFA9272A8C320041819C /* LaunchScreen.storyboard */; };
 		95C2D2F2272A913300B1E8FD /* CaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C2D2F1272A913300B1E8FD /* CaptureManager.swift */; };
 		95C2D2F4272A930700B1E8FD /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C2D2F3272A930700B1E8FD /* ImageProcessor.swift */; };
+		95C2D2F6272AC15500B1E8FD /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C2D2F5272AC15500B1E8FD /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		955FFFAC272A8C320041819C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95C2D2F1272A913300B1E8FD /* CaptureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureManager.swift; sourceTree = "<group>"; };
 		95C2D2F3272A930700B1E8FD /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
+		95C2D2F5272AC15500B1E8FD /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 		955FFF9D272A8C310041819C /* spectrometer */ = {
 			isa = PBXGroup;
 			children = (
+				95C2D2F5272AC15500B1E8FD /* Util.swift */,
 				955FFF9E272A8C310041819C /* AppDelegate.swift */,
 				955FFFA0272A8C310041819C /* SceneDelegate.swift */,
 				955FFFA2272A8C310041819C /* ViewController.swift */,
@@ -155,6 +158,7 @@
 				955FFFA3272A8C310041819C /* ViewController.swift in Sources */,
 				955FFF9F272A8C310041819C /* AppDelegate.swift in Sources */,
 				95C2D2F4272A930700B1E8FD /* ImageProcessor.swift in Sources */,
+				95C2D2F6272AC15500B1E8FD /* Util.swift in Sources */,
 				95C2D2F2272A913300B1E8FD /* CaptureManager.swift in Sources */,
 				955FFFA1272A8C310041819C /* SceneDelegate.swift in Sources */,
 			);
