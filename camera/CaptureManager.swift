@@ -12,7 +12,7 @@ import AVFoundation
 class CaptureManager: NSObject {
     internal static let shared = CaptureManager()
     
-    var session: AVCaptureSession?
+    var session = AVCaptureSession()
     var device: AVCaptureDevice?
     private var cameraAccessGranted = false
     
@@ -21,18 +21,17 @@ class CaptureManager: NSObject {
 
     override init() {
         super.init()
-        session = AVCaptureSession()
     }
 
     func stopSession() {
         if hasInputs() {
-            session?.stopRunning()
+            session.stopRunning()
         }
     }
 
     func startSession(onRequestCompleted: @escaping () -> ()) {
         if hasInputs() {
-            session?.startRunning()
+            session.startRunning()
             onRequestCompleted()
         } else {
             if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
@@ -62,7 +61,7 @@ class CaptureManager: NSObject {
 
     func initCameraSession() {
         
-        if session?.isRunning == true {
+        if session.isRunning == true {
             print("❌ Already running... please check why I'm called! ❌")
             return
         }
@@ -72,8 +71,8 @@ class CaptureManager: NSObject {
         if device != nil {
             do {
                 let input = try AVCaptureDeviceInput(device: device!)
-                session?.addInput(input)
-                session?.sessionPreset = AVCaptureSession.Preset.hd1920x1080
+                session.addInput(input)
+                session.sessionPreset = AVCaptureSession.Preset.hd1920x1080
                 
                 try device?.lockForConfiguration()
                 device?.automaticallyAdjustsVideoHDREnabled = false // no need for HDR
@@ -87,18 +86,18 @@ class CaptureManager: NSObject {
             let output = AVCaptureVideoDataOutput()
             output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as AnyHashable as! String: kCVPixelFormatType_32BGRA]
             output.setSampleBufferDelegate(self, queue: DispatchQueue.main)
-            session?.addOutput(output)
+            session.addOutput(output)
         } else {
             print("❌ No camera found? ❌")
         }
 
         if hasInputs() {
-            session?.startRunning()
+            session.startRunning()
         }
     }
 
     func hasInputs() -> Bool {
-        return session?.inputs.count ?? 0 > 0
+        return session.inputs.count > 0
     }
 
     private func getImageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> UIImage? {
