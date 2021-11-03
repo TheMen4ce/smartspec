@@ -26,15 +26,15 @@ class CaptureManager: NSObject {
     private(set) var isIsoAtMax = false
     private(set) var isTimeAtMin = false
     private(set) var isTimeAtMax = false
-
+    
     // MARK: PUBLIC
-
+    
     func stopSession() {
         if hasInputs() {
             session.stopRunning()
         }
     }
-
+    
     func startSession(onRequestCompleted: @escaping () -> ()) {
         if hasInputs() {
             session.startRunning()
@@ -54,26 +54,26 @@ class CaptureManager: NSObject {
             }
         }
     }
-
+    
     private func camAccessGrantedAndInit(onRequestCompleted: () -> ()) {
         cameraAccessGranted = true
         initCameraSession()
         onRequestCompleted()
     }
-
+    
     func hasCameraAccess() -> Bool {
         return cameraAccessGranted
     }
-
+    
     func initCameraSession() {
         
         if session.isRunning == true {
             print("❌ Already running... please check why I'm called! ❌")
             return
         }
-                
+        
         device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
-
+        
         if device != nil {
             do {
                 let input = try AVCaptureDeviceInput(device: device!)
@@ -101,11 +101,15 @@ class CaptureManager: NSObject {
                         print("ℹ️ Init focus locked!")
                     }
                 }
+                self.device!.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: 10), iso: 600) { _ in
+                    print("ℹ️ Init exposure set!")
+                }
+                device!.unlockForConfiguration()
             } catch {
                 print("❌ Configuration Error! ❌")
                 return
             }
-
+            
             let output = AVCaptureVideoDataOutput()
             output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as AnyHashable as! String: kCVPixelFormatType_32BGRA]
             output.setSampleBufferDelegate(self, queue: DispatchQueue.main)
@@ -113,7 +117,7 @@ class CaptureManager: NSObject {
         } else {
             print("❌ No camera found? ❌")
         }
-
+        
         if hasInputs() {
             session.startRunning()
         }
@@ -136,7 +140,7 @@ class CaptureManager: NSObject {
     }
     
     // MARK: PRIVATE
-
+    
     private func hasInputs() -> Bool {
         return session.inputs.count > 0
     }
@@ -168,9 +172,10 @@ class CaptureManager: NSObject {
             desired_time = newTime
         }
     }
-
+    
     private func getImageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> UIImage? {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            print("❌ Couldn't aquire sample buffer! ❌")
             return nil
         }
         CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
@@ -180,9 +185,11 @@ class CaptureManager: NSObject {
         let bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
         
         guard let context = CGContext(data: baseAddress, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue) else {
+            print("❌ Couldn't create context from base address! ❌")
             return nil
         }
         guard let cgImage = context.makeImage() else {
+            print("❌ Couldn't make image from context! ❌")
             return nil
         }
         let image = UIImage(cgImage: cgImage, scale: 1, orientation: .right)
@@ -196,24 +203,24 @@ class CaptureManager: NSObject {
 
 extension CaptureManager: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-//        print("exposing", isExposing)
-//        print("iso round", Util.round(device!.iso, toNearest: 10))
-//        print("time round", String(format: "%.2f", device!.exposureDuration.seconds))
+        //        print("exposing", isExposing)
+        //        print("iso round", Util.round(device!.iso, toNearest: 10))
+        //        print("time round", String(format: "%.2f", device!.exposureDuration.seconds))
         
-//        if !isExposing && (Util.round(device!.iso, toNearest: 10) != desired_iso || String(format: "%.2f", device!.exposureDuration.seconds) != String(format: "%.2f", desired_time)) {
-//            isExposing = true
-//            device?.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: Int32(1/desired_time)), iso: desired_iso) {_ in
-//                self.isExposing = false
-//            }
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                self.isExposing = false
-//            }
-//            print("ℹ️ adjusting exposure!")
-//            print("current iso: ", device!.iso, "time:", device!.exposureDuration.seconds)
-//            print("desired iso: ", desired_iso, "time:", desired_time)
-//            print("device POI: ", device!.focusPointOfInterest)
-//        }
-            
+        //        if !isExposing && (Util.round(device!.iso, toNearest: 10) != desired_iso || String(format: "%.2f", device!.exposureDuration.seconds) != String(format: "%.2f", desired_time)) {
+        //            isExposing = true
+        //            device?.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: Int32(1/desired_time)), iso: desired_iso) {_ in
+        //                self.isExposing = false
+        //            }
+        //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        //                self.isExposing = false
+        //            }
+        //            print("ℹ️ adjusting exposure!")
+        //            print("current iso: ", device!.iso, "time:", device!.exposureDuration.seconds)
+        //            print("desired iso: ", desired_iso, "time:", desired_time)
+        //            print("device POI: ", device!.focusPointOfInterest)
+        //        }
+        
         
         if let outputImage = getImageFromSampleBuffer(sampleBuffer: sampleBuffer) {
             ImageProcessor.shared.process(image: outputImage)

@@ -172,16 +172,22 @@
                                     <constraint firstItem="aFS-Qx-kI1" firstAttribute="top" secondItem="baJ-8P-FFr" secondAttribute="bottom" constant="4" id="v9g-dQ-7k0"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WT5-3i-Vme" userLabel="Cropped Image">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="179"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="background"/>
                         <constraints>
+                            <constraint firstItem="WT5-3i-Vme" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="7Af-pa-1oS"/>
+                            <constraint firstItem="WT5-3i-Vme" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.2" id="DfS-gv-rSp"/>
                             <constraint firstItem="RkR-Sb-R4j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="FIU-pm-eXE"/>
                             <constraint firstItem="ESl-VF-Jmw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="G8Y-Kf-wsc"/>
                             <constraint firstItem="vB3-jF-tfv" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="Ias-J3-clb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ESl-VF-Jmw" secondAttribute="bottom" constant="40" id="MCt-sS-wmf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RkR-Sb-R4j" secondAttribute="trailing" constant="20" id="VG4-Tb-56h"/>
                             <constraint firstItem="RkR-Sb-R4j" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YAC-IP-BFi"/>
+                            <constraint firstItem="WT5-3i-Vme" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="iuw-yd-Qly"/>
                             <constraint firstItem="0rp-Uh-Agt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="nzP-t1-bZ0"/>
                             <constraint firstItem="vB3-jF-tfv" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="pX1-Qm-VG1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0rp-Uh-Agt" secondAttribute="bottom" constant="40" id="q5Z-lG-JIf"/>
@@ -191,10 +197,12 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="405-vD-WWZ" secondAttribute="bottom" constant="40" id="wCB-ob-bGY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0rp-Uh-Agt" secondAttribute="trailing" constant="20" id="x2N-st-OcM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="405-vD-WWZ" secondAttribute="trailing" constant="20" id="xOf-vf-fTD"/>
+                            <constraint firstItem="WT5-3i-Vme" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yYl-Rr-OMV"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cameraImage" destination="vB3-jF-tfv" id="Vel-7Z-wgf"/>
+                        <outlet property="croppedImage" destination="WT5-3i-Vme" id="yXe-Na-tal"/>
                         <outlet property="currentIsoLabel" destination="ZZu-QS-Mq7" id="RtA-gv-H15"/>
                         <outlet property="currentTimeLabel" destination="aFS-Qx-kI1" id="Yge-to-xe4"/>
                         <outlet property="debugInfoLabel" destination="0rp-Uh-Agt" id="Uye-vx-ZgL"/>
@@ -215,7 +223,7 @@
         <image name="no-camera" width="256" height="256"/>
         <image name="plus" width="32" height="32"/>
         <namedColor name="background">
-            <color red="0.075000002980232239" green="0.11800000071525574" blue="0.19599999487400055" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.074509803921568626" green="0.11764705882352941" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

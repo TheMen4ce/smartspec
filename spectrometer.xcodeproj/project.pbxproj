@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E46654F81D54F20197F4977 /* Pods_spectrometer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 829085C6940AB94349744823 /* Pods_spectrometer.framework */; };
 		955FFF9F272A8C310041819C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955FFF9E272A8C310041819C /* AppDelegate.swift */; };
 		955FFFA1272A8C310041819C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955FFFA0272A8C310041819C /* SceneDelegate.swift */; };
 		955FFFA3272A8C310041819C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955FFFA2272A8C310041819C /* ViewController.swift */; };
@@ -16,9 +17,13 @@
 		95C2D2F2272A913300B1E8FD /* CaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C2D2F1272A913300B1E8FD /* CaptureManager.swift */; };
 		95C2D2F4272A930700B1E8FD /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C2D2F3272A930700B1E8FD /* ImageProcessor.swift */; };
 		95C2D2F6272AC15500B1E8FD /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C2D2F5272AC15500B1E8FD /* Util.swift */; };
+		95E174742732A34C001FBC77 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95E1746B27329E94001FBC77 /* OpenCVWrapper.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0FF0ABDF0574D5C3757834F7 /* Pods-spectrometer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spectrometer.release.xcconfig"; path = "Target Support Files/Pods-spectrometer/Pods-spectrometer.release.xcconfig"; sourceTree = "<group>"; };
+		232E5C31F23572CF3187C8D5 /* Pods-spectrometer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spectrometer.debug.xcconfig"; path = "Target Support Files/Pods-spectrometer/Pods-spectrometer.debug.xcconfig"; sourceTree = "<group>"; };
+		829085C6940AB94349744823 /* Pods_spectrometer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spectrometer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		955FFF9B272A8C310041819C /* spectrometer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spectrometer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		955FFF9E272A8C310041819C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		955FFFA0272A8C310041819C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +35,9 @@
 		95C2D2F1272A913300B1E8FD /* CaptureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureManager.swift; sourceTree = "<group>"; };
 		95C2D2F3272A930700B1E8FD /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		95C2D2F5272AC15500B1E8FD /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		95E1746A27329E26001FBC77 /* bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bridging-header.h"; sourceTree = "<group>"; };
+		95E1746B27329E94001FBC77 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
+		95E1746C27329E94001FBC77 /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,18 +45,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E46654F81D54F20197F4977 /* Pods_spectrometer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04D98A8AC40378F0B96CE827 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				232E5C31F23572CF3187C8D5 /* Pods-spectrometer.debug.xcconfig */,
+				0FF0ABDF0574D5C3757834F7 /* Pods-spectrometer.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		955FFF92272A8C310041819C = {
 			isa = PBXGroup;
 			children = (
 				95C2D2F0272A911B00B1E8FD /* camera */,
+				95E1746927329DF5001FBC77 /* cv */,
 				955FFF9D272A8C310041819C /* spectrometer */,
 				955FFF9C272A8C310041819C /* Products */,
+				AAE5A96347F47A89115676DA /* Frameworks */,
+				04D98A8AC40378F0B96CE827 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,9 +100,27 @@
 			isa = PBXGroup;
 			children = (
 				95C2D2F1272A913300B1E8FD /* CaptureManager.swift */,
-				95C2D2F3272A930700B1E8FD /* ImageProcessor.swift */,
 			);
 			path = camera;
+			sourceTree = "<group>";
+		};
+		95E1746927329DF5001FBC77 /* cv */ = {
+			isa = PBXGroup;
+			children = (
+				95C2D2F3272A930700B1E8FD /* ImageProcessor.swift */,
+				95E1746C27329E94001FBC77 /* OpenCVWrapper.h */,
+				95E1746B27329E94001FBC77 /* OpenCVWrapper.mm */,
+				95E1746A27329E26001FBC77 /* bridging-header.h */,
+			);
+			path = cv;
+			sourceTree = "<group>";
+		};
+		AAE5A96347F47A89115676DA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				829085C6940AB94349744823 /* Pods_spectrometer.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -91,6 +130,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 955FFFAF272A8C320041819C /* Build configuration list for PBXNativeTarget "spectrometer" */;
 			buildPhases = (
+				CCE19B211FCB5605A41DADEC /* [CP] Check Pods Manifest.lock */,
 				955FFF97272A8C310041819C /* Sources */,
 				955FFF98272A8C310041819C /* Frameworks */,
 				955FFF99272A8C310041819C /* Resources */,
@@ -150,11 +190,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CCE19B211FCB5605A41DADEC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-spectrometer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		955FFF97272A8C310041819C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95E174742732A34C001FBC77 /* OpenCVWrapper.mm in Sources */,
 				955FFFA3272A8C310041819C /* ViewController.swift in Sources */,
 				955FFF9F272A8C310041819C /* AppDelegate.swift in Sources */,
 				95C2D2F4272A930700B1E8FD /* ImageProcessor.swift in Sources */,
@@ -304,6 +370,7 @@
 		};
 		955FFFB0272A8C320041819C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 232E5C31F23572CF3187C8D5 /* Pods-spectrometer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -328,6 +395,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.lightray.spectrometer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "cv/bridging-header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -335,6 +403,7 @@
 		};
 		955FFFB1272A8C320041819C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0FF0ABDF0574D5C3757834F7 /* Pods-spectrometer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -359,6 +428,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.lightray.spectrometer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "cv/bridging-header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

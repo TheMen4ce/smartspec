@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var noCameraAccessView: UIView!
     @IBOutlet weak var cameraImage: UIImageView!
+    @IBOutlet weak var croppedImage: UIImageView!
     @IBOutlet weak var debugInfoLabel: UILabel!
     
     @IBOutlet weak var currentIsoLabel: UILabel!
@@ -67,6 +68,10 @@ class ViewController: UIViewController {
         unsubscribeFromImageProcessor()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: PRIVATE
     
     private func updateNoCameraAccessLabel() {
@@ -88,6 +93,8 @@ extension ViewController: ImageProcessorSubscriber {
     
     func newImageAvailable() {
         cameraImage.image = ImageProcessor.shared.image
+        croppedImage.image = ImageProcessor.shared.croppedImage
+        
         currentIsoLabel.text = String(format: "%.0f", CaptureManager.shared.device!.iso)
         currentTimeLabel.text = String(format: "%.3f", CaptureManager.shared.device!.exposureDuration.seconds)
         

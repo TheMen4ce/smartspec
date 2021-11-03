@@ -1,1 +1,15 @@
+# User Data
 spectrometer.xcodeproj/xcuserdata
+spectrometer.xcworkspace/xcuserdata
+
+# Build Code
+build
+
+# IntelliJ
+.idea
+
+# Pods
+Pods
+!Pods/Pods.xcodeproj
+!Pods/Pods-spectrometer.debug.xcconfig
+!Pods/Pods-spectrometer.release.xcconfig

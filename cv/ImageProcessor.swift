@@ -20,10 +20,20 @@ class ImageProcessor {
     private var subscribers = Dictionary<String, ImageProcessorSubscriber>()
     
     private(set) var image = UIImage()
+    private(set) var croppedImage = UIImage()
     
+    private var count = 0
     
     func process(image: UIImage) {
         self.image = image
+        
+        if count % 10 == 0 {
+            croppedImage = OpenCVWrapper.extractCrop(image)
+            let hist = OpenCVWrapper.histogram(croppedImage)
+//            print(hist)
+            count = 0
+        }
+        count += 1
         
         publish()
     }
