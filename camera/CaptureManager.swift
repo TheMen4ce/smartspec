@@ -91,13 +91,15 @@ class CaptureManager: NSObject {
                 // device?.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: 20)
                 // device?.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: 20)
                 
+                // custom exposure (but I think we want it on auto)
+                //                self.device!.setExposureModeCustom(duration: self.device!.activeFormat.maxExposureDuration, iso: self.device!.activeFormat.maxISO) { _ in
+                //                    print("ℹ️ Init exposure set!")
+                //                }
+                
                 if device!.isFocusModeSupported(.locked) {
                     device?.setFocusModeLocked(lensPosition: 0.8) { _ in // .7-.9 seems to be the best
                         print("ℹ️ Init focus locked!")
                     }
-                }
-                self.device!.setExposureModeCustom(duration: self.device!.activeFormat.maxExposureDuration, iso: self.device!.activeFormat.maxISO) { _ in
-                    print("ℹ️ Init exposure set!")
                 }
             } catch {
                 print("❌ Configuration Error! ❌")
@@ -198,19 +200,19 @@ extension CaptureManager: AVCaptureVideoDataOutputSampleBufferDelegate {
 //        print("iso round", Util.round(device!.iso, toNearest: 10))
 //        print("time round", String(format: "%.2f", device!.exposureDuration.seconds))
         
-        if !isExposing && (Util.round(device!.iso, toNearest: 10) != desired_iso || String(format: "%.2f", device!.exposureDuration.seconds) != String(format: "%.2f", desired_time)) {
-            isExposing = true
-            device?.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: Int32(1/desired_time)), iso: desired_iso) {_ in
-                self.isExposing = false
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.isExposing = false
-            }
-            print("ℹ️ adjusting exposure!")
-            print("current iso: ", device!.iso, "time:", device!.exposureDuration.seconds)
-            print("desired iso: ", desired_iso, "time:", desired_time)
-            print("device POI: ", device!.focusPointOfInterest)
-        }
+//        if !isExposing && (Util.round(device!.iso, toNearest: 10) != desired_iso || String(format: "%.2f", device!.exposureDuration.seconds) != String(format: "%.2f", desired_time)) {
+//            isExposing = true
+//            device?.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: Int32(1/desired_time)), iso: desired_iso) {_ in
+//                self.isExposing = false
+//            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                self.isExposing = false
+//            }
+//            print("ℹ️ adjusting exposure!")
+//            print("current iso: ", device!.iso, "time:", device!.exposureDuration.seconds)
+//            print("desired iso: ", desired_iso, "time:", desired_time)
+//            print("device POI: ", device!.focusPointOfInterest)
+//        }
             
         
         if let outputImage = getImageFromSampleBuffer(sampleBuffer: sampleBuffer) {
