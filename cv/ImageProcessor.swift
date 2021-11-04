@@ -26,7 +26,7 @@ class ImageProcessor {
     private var count = 0
     
     func process(image: UIImage) {
-        self.image = image
+        self.image = OpenCVWrapper.displayCrop(image)
         
         if count % 10 == 0 {
             croppedImage = OpenCVWrapper.extractCrop(image)

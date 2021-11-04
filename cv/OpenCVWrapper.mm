@@ -20,6 +20,28 @@ using namespace cv;
 
 @implementation OpenCVWrapper
 
++ (UIImage *)displayCrop:(UIImage *)image {
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    
+    float heightMargin = 0.82;
+    float widthMargin = 0.94;
+
+    cv::Rect rect(image.size.height * heightMargin / 2, image.size.width * widthMargin / 2, image.size.height - image.size.height * heightMargin, image.size.width - image.size.width * widthMargin);
+    
+    cv::Point tr = cv::Point(rect.x + rect.width, rect.y);
+    cv::Point bl = cv::Point(rect.x, rect.y + rect.height);
+    
+    cv::line(mat, rect.tl(), tr, Scalar(255,0,0,255), 5, LINE_AA);
+    cv::line(mat, tr, rect.br(), Scalar(255,0,0,255), 5, LINE_AA);
+    cv::line(mat, rect.br(), bl, Scalar(255,0,0,255), 5, LINE_AA);
+    cv::line(mat, bl, rect.tl(), Scalar(255,0,0,255), 5, LINE_AA);
+    
+    UIImage *newImage = MatToUIImage(mat);
+    
+    return [UIImage imageWithCGImage:[newImage CGImage] scale:[image scale] orientation: image.imageOrientation];
+}
+
 + (UIImage *)extractCrop:(UIImage *)image {
     cv::Mat mat;
     UIImageToMat(image, mat);
