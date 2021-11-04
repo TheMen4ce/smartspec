@@ -271,11 +271,14 @@
                         <outlet property="currentTimeLabel" destination="aFS-Qx-kI1" id="Yge-to-xe4"/>
                         <outlet property="focusMinusButton" destination="H5U-9D-7r2" id="Tpf-kG-s0z"/>
                         <outlet property="focusPlusButton" destination="1VO-Cl-gOn" id="kFU-Lu-A3G"/>
+                        <outlet property="focusView" destination="ogO-Hp-CHD" id="bJg-UX-baG"/>
                         <outlet property="isoMinusButton" destination="39Y-B2-iTN" id="7sH-6g-Rgw"/>
                         <outlet property="isoPlusButton" destination="RxP-fl-KxG" id="is0-co-EGL"/>
+                        <outlet property="isoView" destination="ESl-VF-Jmw" id="wMq-8P-Akm"/>
                         <outlet property="noCameraAccessView" destination="RkR-Sb-R4j" id="nmN-1V-CQ4"/>
                         <outlet property="timeMinusButton" destination="R7A-As-Bcu" id="FNy-B9-36w"/>
                         <outlet property="timePlusButton" destination="baJ-8P-FFr" id="ig1-Vw-dFS"/>
+                        <outlet property="timeView" destination="405-vD-WWZ" id="8z4-ZG-eBQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

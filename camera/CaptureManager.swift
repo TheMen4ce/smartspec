@@ -17,7 +17,7 @@ class CaptureManager: NSObject {
     var device: AVCaptureDevice?
     private var session = AVCaptureSession()
     private var isExposing = false
-    private var cameraAccessGranted = false
+    private(set) var cameraAccessGranted = false
     
     private let colorSpace = CGColorSpace.init(name: CGColorSpace.linearSRGB) ?? CGColorSpaceCreateDeviceRGB()
     private let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue | CGBitmapInfo.byteOrder32Little.rawValue)
@@ -71,10 +71,6 @@ class CaptureManager: NSObject {
         cameraAccessGranted = true
         initCameraSession()
         onRequestCompleted()
-    }
-    
-    func hasCameraAccess() -> Bool {
-        return cameraAccessGranted
     }
     
     func initCameraSession() {

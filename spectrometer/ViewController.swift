@@ -24,6 +24,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var cameraImage: UIImageView!
     @IBOutlet weak var croppedImage: UIImageView!
     
+    @IBOutlet weak var isoView: UIView!
+    @IBOutlet weak var focusView: UIView!
+    @IBOutlet weak var timeView: UIView!
+    
     @IBOutlet weak var currentIsoLabel: UILabel!
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var currentFocusLabel: UILabel!
@@ -90,7 +94,11 @@ class ViewController: UIViewController {
     
     private func updateNoCameraAccessLabel() {
         DispatchQueue.main.async {
-            self.noCameraAccessView.isHidden = CaptureManager.shared.hasCameraAccess()
+            self.noCameraAccessView.isHidden = CaptureManager.shared.cameraAccessGranted
+            self.isoView.isHidden = !CaptureManager.shared.cameraAccessGranted
+            self.focusView.isHidden = !CaptureManager.shared.cameraAccessGranted
+            self.timeView.isHidden = !CaptureManager.shared.cameraAccessGranted
+            self.chartView.isHidden = !CaptureManager.shared.cameraAccessGranted
         }
     }
     
