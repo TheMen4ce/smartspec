@@ -41,7 +41,6 @@ class ImageProcessor {
 
     func subscribe(subscriber: ImageProcessorSubscriber) -> () -> Void {
         subscribers["\(subscriber)"] = subscriber
-        subscriber.newImageAvailable()
         
         return {
             self.unsubscribe(subscriber: subscriber)

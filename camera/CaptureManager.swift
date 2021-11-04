@@ -106,7 +106,8 @@ class CaptureManager: NSObject {
                 setFocusAt(factor: 0.8)
                 
                 // Note: Time will be set to 1/30 regardless of what is set here. Weird, but true!
-                self.device!.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: 20), iso: 600) { _ in
+                let initialIso = 600 > device!.activeFormat.maxISO ? device!.activeFormat.maxISO : 600
+                self.device!.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: 20), iso: initialIso) { _ in
                     print("ℹ️ Init exposure set!")
                 }
             } catch {
