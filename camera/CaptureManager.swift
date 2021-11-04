@@ -12,8 +12,10 @@ import AVFoundation
 class CaptureManager: NSObject {
     internal static let shared = CaptureManager()
     
-    var session = AVCaptureSession()
+    // MARK: PROPERTIES
+    
     var device: AVCaptureDevice?
+    private var session = AVCaptureSession()
     private var isExposing = false
     private var cameraAccessGranted = false
     
@@ -27,7 +29,15 @@ class CaptureManager: NSObject {
     private(set) var isTimeAtMin = false
     private(set) var isTimeAtMax = false
     
-    // MARK: PUBLIC
+    private var newExposureApplied = false
+    private var exposureString = ""
+    private var isoToApply: Float = 0
+    private var timeToApply = CMTimeMake(value: 1, timescale: 1)
+    private var isoBeforeApply: Float = 0
+    private var timeBeforeApply = CMTimeMake(value: 1, timescale: 1)
+    private var exposureToApply = ""
+    
+    // MARK: CAM SESSION HANDLING
     
     func stopSession() {
         if hasInputs() {
@@ -80,8 +90,8 @@ class CaptureManager: NSObject {
                 session.addInput(input)
                 session.sessionPreset = AVCaptureSession.Preset.high
                 
-                try device!.lockForConfiguration()
-                device!.automaticallyAdjustsVideoHDREnabled = false // no need for HDR
+                try device!.lockForConfiguration() // and never unlock
+                device!.automaticallyAdjustsVideoHDREnabled = false // HDR may impact our measurements
                 
                 // To stop auto WB (but i think we want it on auto)
                 // let wbg = AVCaptureDevice.WhiteBalanceGains(redGain: 1, greenGain: 1, blueGain: 1) // WB will result in wrong colors
@@ -91,20 +101,16 @@ class CaptureManager: NSObject {
                 // device?.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: 20)
                 // device?.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: 20)
                 
-                // custom exposure (but I think we want it on auto)
-                //                self.device!.setExposureModeCustom(duration: self.device!.activeFormat.maxExposureDuration, iso: self.device!.activeFormat.maxISO) { _ in
-                //                    print("ℹ️ Init exposure set!")
-                //                }
-                
                 if device!.isFocusModeSupported(.locked) {
                     device?.setFocusModeLocked(lensPosition: 0.8) { _ in // .7-.9 seems to be the best
                         print("ℹ️ Init focus locked!")
                     }
                 }
-                self.device!.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: 10), iso: 600) { _ in
+                
+                // Note: Time will be set to 1/30 regardless of what is set here. Weird, but true!
+                self.device!.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: 20), iso: 600) { _ in
                     print("ℹ️ Init exposure set!")
                 }
-                device!.unlockForConfiguration()
             } catch {
                 print("❌ Configuration Error! ❌")
                 return
@@ -123,55 +129,93 @@ class CaptureManager: NSObject {
         }
     }
     
-    func increaseIso() {
-        setDesiredIso(newIso: desired_iso + 50)
-    }
-    
-    func decreaseIso() {
-        setDesiredIso(newIso: desired_iso - 50)
-    }
-    
-    func increaseTime() {
-        setDesiredTime(newTime: desired_time + 0.01)
-    }
-    
-    func decreaseTime() {
-        setDesiredTime(newTime: desired_time - 0.01)
-    }
-    
-    // MARK: PRIVATE
-    
     private func hasInputs() -> Bool {
         return session.inputs.count > 0
     }
     
-    private func setDesiredIso(newIso: Float) {
-        isIsoAtMin = false
-        isIsoAtMax = false
-        if newIso >= device!.activeFormat.maxISO {
-            desired_iso = device!.activeFormat.maxISO
-            isIsoAtMax = true
-        } else if newIso <= device!.activeFormat.minISO {
-            desired_iso = device!.activeFormat.minISO
-            isIsoAtMin = true
-        } else {
-            desired_iso = newIso
+    // MARK: EXPOSURE HANDLING
+    
+    func increaseIso() {
+        exposureToApply = "⬆️🎞"
+        applyNewExposure(newIso: getNewIso(current: device!.iso, factor: 1.1), newTime: device!.exposureDuration)
+    }
+    
+    func decreaseIso() {
+        exposureToApply = "⬇️🎞"
+        applyNewExposure(newIso: getNewIso(current: device!.iso, factor: 0.9), newTime: device!.exposureDuration)
+    }
+    
+    func increaseTime() {
+        exposureToApply = "⬆️⏱"
+        applyNewExposure(newIso: device!.iso, newTime: getNewTime(current: device!.exposureDuration, factor: 1.1))
+    }
+    
+    func decreaseTime() {
+        exposureToApply = "⬇️⏱"
+        applyNewExposure(newIso: device!.iso, newTime: getNewTime(current: device!.exposureDuration, factor: 0.9))
+    }
+    
+    
+    private func getNewIso(current: Float, factor: Float) -> Float {
+        var newIso = current * factor
+        if newIso < device!.activeFormat.minISO {
+            newIso = device!.activeFormat.minISO
+        } else if newIso > device!.activeFormat.maxISO {
+            newIso = device!.activeFormat.maxISO
+        }
+        return newIso
+    }
+    
+    private func getNewTime(current: CMTime, factor: Float) -> CMTime {
+        let newValue = Int64(Float(current.value) * factor)
+        var newTime = CMTimeMake(value: newValue, timescale: device!.exposureDuration.timescale)
+        
+        if newTime < device!.activeFormat.minExposureDuration {
+            newTime = device!.activeFormat.minExposureDuration
+
+        } else if newTime > device!.activeFormat.maxExposureDuration {
+            newTime = device!.activeFormat.maxExposureDuration
+        }
+        return newTime
+    }
+    
+    private func applyNewExposure(newIso: Float, newTime: CMTime) {
+        print(exposureString)
+        print("Apply new exposure | time:", String(format: "%.8f", newTime.seconds), "iso:", String(format: "%.6f", newIso))
+        
+        timeToApply = newTime
+        isoToApply = newIso
+        timeBeforeApply = device!.exposureDuration
+        isoBeforeApply = device!.iso
+        
+        isTimeAtMax = newTime == device!.activeFormat.maxExposureDuration
+        isTimeAtMin = newTime == device!.activeFormat.minExposureDuration
+        
+        isIsoAtMax = newIso == device!.activeFormat.maxISO
+        isIsoAtMin = newIso == device!.activeFormat.minISO
+        
+        device!.setExposureModeCustom(duration: newTime, iso: newIso) {_ in
+            self.newExposureApplied = true
         }
     }
     
-    private func setDesiredTime(newTime: Double) {
-        isTimeAtMin = false
-        isTimeAtMax = false
-        if newTime >= device!.activeFormat.maxExposureDuration.seconds {
-            desired_time = device!.activeFormat.maxExposureDuration.seconds
-            isTimeAtMax = true
-        } else if newTime <= device!.activeFormat.minExposureDuration.seconds {
-            desired_time = device!.activeFormat.minExposureDuration.seconds
-            isTimeAtMin = true
-        } else {
-            desired_time = newTime
+    private func reapplyExposure() {
+        print("🔄 reapplying exposure!", exposureToApply)
+        switch exposureToApply {
+        case "⬇️⏱":
+            applyNewExposure(newIso: isoToApply, newTime: getNewTime(current: timeToApply, factor: 0.995))
+        case "⬆️⏱":
+            applyNewExposure(newIso: isoToApply, newTime: getNewTime(current: timeToApply, factor: 1.005))
+        case "⬇️🎞":
+            applyNewExposure(newIso: getNewIso(current: isoToApply, factor: 0.999), newTime: timeToApply)
+        case "⬆️🎞":
+            applyNewExposure(newIso: getNewIso(current: isoToApply, factor: 1.001), newTime: timeToApply)
+        default:
+            print("❌ No such exposure to apply exists ❌", exposureToApply)
         }
     }
+    
+    // MARK: IMAGE PROCESSING
     
     private func getImageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> UIImage? {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
@@ -196,30 +240,18 @@ class CaptureManager: NSObject {
         CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly)
         return image
     }
-    
 }
-
-// MARK: EXTENSION
 
 extension CaptureManager: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        //        print("exposing", isExposing)
-        //        print("iso round", Util.round(device!.iso, toNearest: 10))
-        //        print("time round", String(format: "%.2f", device!.exposureDuration.seconds))
-        
-        //        if !isExposing && (Util.round(device!.iso, toNearest: 10) != desired_iso || String(format: "%.2f", device!.exposureDuration.seconds) != String(format: "%.2f", desired_time)) {
-        //            isExposing = true
-        //            device?.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: Int32(1/desired_time)), iso: desired_iso) {_ in
-        //                self.isExposing = false
-        //            }
-        //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-        //                self.isExposing = false
-        //            }
-        //            print("ℹ️ adjusting exposure!")
-        //            print("current iso: ", device!.iso, "time:", device!.exposureDuration.seconds)
-        //            print("desired iso: ", desired_iso, "time:", desired_time)
-        //            print("device POI: ", device!.focusPointOfInterest)
-        //        }
+        if newExposureApplied {
+            newExposureApplied = false
+            if device!.iso != isoBeforeApply || device!.exposureDuration != timeBeforeApply {
+                print("✅ Exposure has actually changed!")
+            } else {
+                reapplyExposure()
+            }
+        }
         
         
         if let outputImage = getImageFromSampleBuffer(sampleBuffer: sampleBuffer) {
