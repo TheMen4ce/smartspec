@@ -28,6 +28,8 @@ class CaptureManager: NSObject {
     private(set) var isIsoAtMax = false
     private(set) var isTimeAtMin = false
     private(set) var isTimeAtMax = false
+    private(set) var isFocusAtMin = false
+    private(set) var isFocusAtMax = false
     
     private var newExposureApplied = false
     private var exposureString = ""
@@ -101,11 +103,7 @@ class CaptureManager: NSObject {
                 // device?.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: 20)
                 // device?.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: 20)
                 
-                if device!.isFocusModeSupported(.locked) {
-                    device?.setFocusModeLocked(lensPosition: 0.8) { _ in // .7-.9 seems to be the best
-                        print("ℹ️ Init focus locked!")
-                    }
-                }
+                setFocusAt(factor: 0.8)
                 
                 // Note: Time will be set to 1/30 regardless of what is set here. Weird, but true!
                 self.device!.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: 20), iso: 600) { _ in
@@ -131,6 +129,39 @@ class CaptureManager: NSObject {
     
     private func hasInputs() -> Bool {
         return session.inputs.count > 0
+    }
+    
+    // MARK: FOCUS HANDLING
+    
+    func increaseFocus() {
+        setFocusAt(factor: device!.lensPosition + 0.05)
+    }
+    
+    func decreaseFocus() {
+        setFocusAt(factor: device!.lensPosition - 0.05)
+    }
+    
+    private func setFocusAt(factor: Float) {
+        isFocusAtMin = false
+        isFocusAtMax = false
+        
+        var lensPosition = Float(String(format: "%.2f", factor))!
+        if lensPosition < 0 {
+            lensPosition = 0
+            isFocusAtMin = true
+        }
+        if lensPosition > 1 {
+            lensPosition = 1
+            isFocusAtMax = true
+        }
+        
+        if device!.isFocusModeSupported(.locked) {
+            device?.setFocusModeLocked(lensPosition: lensPosition) { _ in
+                print("👁 Focus set to:", lensPosition)
+            }
+        } else {
+            print("❌ Adjusting focus is not supported! ❌")
+        }
     }
     
     // MARK: EXPOSURE HANDLING

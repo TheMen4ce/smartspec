@@ -23,14 +23,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var chartView: LineChartView!
     @IBOutlet weak var cameraImage: UIImageView!
     @IBOutlet weak var croppedImage: UIImageView!
-    @IBOutlet weak var debugInfoLabel: UILabel!
     
     @IBOutlet weak var currentIsoLabel: UILabel!
     @IBOutlet weak var currentTimeLabel: UILabel!
+    @IBOutlet weak var currentFocusLabel: UILabel!
     @IBOutlet weak var isoPlusButton: UIButton!
     @IBOutlet weak var isoMinusButton: UIButton!
     @IBOutlet weak var timePlusButton: UIButton!
     @IBOutlet weak var timeMinusButton: UIButton!
+    @IBOutlet weak var focusPlusButton: UIButton!
+    @IBOutlet weak var focusMinusButton: UIButton!
     
     // MARK: ACTIONS
     
@@ -49,7 +51,14 @@ class ViewController: UIViewController {
     @IBAction func lessTimeButtonTapped(_ sender: Any) {
         CaptureManager.shared.decreaseTime()
     }
-
+    
+    @IBAction func moreFocusTapped(_ sender: Any) {
+        CaptureManager.shared.increaseFocus()
+    }
+    
+    @IBAction func lessFocusTapped(_ sender: Any) {
+        CaptureManager.shared.decreaseFocus()
+    }
     
     // MARK: LIFECYCLE
     
@@ -141,11 +150,14 @@ extension ViewController: ImageProcessorSubscriber {
         
         currentIsoLabel.text = String(format: "%.0f", CaptureManager.shared.device!.iso)
         currentTimeLabel.text = String(format: "%.3f", CaptureManager.shared.device!.exposureDuration.seconds)
+        currentFocusLabel.text =  String(format: "%.2f", CaptureManager.shared.device!.lensPosition)
         
         isoPlusButton.isHidden = CaptureManager.shared.isIsoAtMax
         isoMinusButton.isHidden = CaptureManager.shared.isIsoAtMin
         timePlusButton.isHidden = CaptureManager.shared.isTimeAtMax
         timeMinusButton.isHidden = CaptureManager.shared.isTimeAtMin
+        focusPlusButton.isHidden = CaptureManager.shared.isFocusAtMax
+        focusMinusButton.isHidden = CaptureManager.shared.isFocusAtMin
     }
     
 }
