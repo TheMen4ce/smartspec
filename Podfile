@@ -7,4 +7,5 @@ target 'spectrometer' do
 
   # Pods for spectrometer
   pod 'OpenCV2'
+  pod 'Charts'
 end

@@ -21,6 +21,7 @@ class ImageProcessor {
     
     private(set) var image = UIImage()
     private(set) var croppedImage = UIImage()
+    private(set) var hist: NSMutableArray = []
     
     private var count = 0
     
@@ -29,8 +30,8 @@ class ImageProcessor {
         
         if count % 10 == 0 {
             croppedImage = OpenCVWrapper.extractCrop(image)
-            let hist = OpenCVWrapper.histogram(croppedImage)
-//            print(hist)
+            hist = OpenCVWrapper.histogram(croppedImage)
+            
             count = 0
         }
         count += 1

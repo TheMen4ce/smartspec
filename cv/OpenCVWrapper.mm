@@ -38,16 +38,12 @@ using namespace cv;
     cvtColor(mat, mat, COLOR_RGB2GRAY);
     
     reduce(mat, col_sum, 0, REDUCE_AVG, CV_32F);
-    
+
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for(int i = 0; i < col_sum.cols - 1; i++) {
-        NSNumber *num = [NSNumber numberWithDouble:col_sum.at<uchar>(1,i)];
+        NSNumber *num = [NSNumber numberWithFloat:(float)col_sum.at<float>(0,i)];
         [array addObject:num];
     }
-    
-//    cout << "ARRAY" << endl << array << endl;
-//    cout << "MAT" << endl << col_sum << endl;
-    
     
     return array;
 }

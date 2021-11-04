@@ -134,6 +134,7 @@
 				955FFF97272A8C310041819C /* Sources */,
 				955FFF98272A8C310041819C /* Frameworks */,
 				955FFF99272A8C310041819C /* Resources */,
+				80052D222288BFCA6195CE77 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -191,6 +192,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		80052D222288BFCA6195CE77 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spectrometer/Pods-spectrometer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spectrometer/Pods-spectrometer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-spectrometer/Pods-spectrometer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CCE19B211FCB5605A41DADEC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

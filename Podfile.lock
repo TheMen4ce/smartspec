@@ -1,16 +1,22 @@
 PODS:
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - OpenCV2 (4.3.0)
 
 DEPENDENCIES:
+  - Charts
   - OpenCV2
 
 SPEC REPOS:
   trunk:
+    - Charts
     - OpenCV2
 
 SPEC CHECKSUMS:
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   OpenCV2: ffe82e5cb5d16dc3fc01a5f4127b9a5b3cfc7d1b
 
-PODFILE CHECKSUM: 5065ec199b90d5b00016f6ca5c7c45dc12b96396
+PODFILE CHECKSUM: 27e5cb439ead123d8f49f20989770a5f531be472
 
 COCOAPODS: 1.11.2
