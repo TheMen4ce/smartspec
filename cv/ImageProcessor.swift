@@ -13,7 +13,10 @@ protocol ImageProcessorSubscriber {
 }
 
 class ImageProcessor {
-    private init(){ }
+    private init() {
+        cropWidth = UserDefaults.standard.float(forKey: "CropWidth")
+        cropHeight = UserDefaults.standard.float(forKey: "CropHeight")
+    }
     
     static let shared = ImageProcessor()
 
@@ -23,13 +26,16 @@ class ImageProcessor {
     private(set) var croppedImage = UIImage()
     private(set) var hist: NSMutableArray = []
     
-    private var count = 0
+    private(set) var cropWidth: Float = 0
+    private(set) var cropHeight: Float = 0
+    
+    private var count = 0 // defines sample rate
     
     func process(image: UIImage) {
-        self.image = OpenCVWrapper.displayCrop(image)
+        self.image = OpenCVWrapper.displayCrop(image, height: cropHeight, width: cropWidth)
         
         if count % 10 == 0 {
-            croppedImage = OpenCVWrapper.extractCrop(image)
+            croppedImage = OpenCVWrapper.extractCrop(image, height: cropHeight, width: cropWidth)
             hist = OpenCVWrapper.histogram(croppedImage)
             
             count = 0
@@ -49,6 +55,16 @@ class ImageProcessor {
 
     func unsubscribe(subscriber: ImageProcessorSubscriber) {
         subscribers["\(subscriber)"] = nil
+    }
+    
+    func setCropWidth(newWidth: Float) {
+        cropWidth = newWidth
+        UserDefaults.standard.set(cropWidth, forKey: "CropWidth")
+    }
+    
+    func setCropHeight(newHeight: Float) {
+        cropHeight = newHeight
+        UserDefaults.standard.set(cropHeight, forKey: "CropHeight")
     }
 
     private func publish() {

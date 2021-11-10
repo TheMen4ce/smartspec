@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OpenCVWrapper : NSObject
 
 
-+ (UIImage *)displayCrop:(UIImage *)image;
-+ (UIImage *)extractCrop:(UIImage *)image;
++ (UIImage *)displayCrop:(UIImage *)image height:(float)height width:(float)width;
++ (UIImage *)extractCrop:(UIImage *)image height:(float)height width:(float)width;
 + (NSMutableArray *)histogram:(UIImage *)image;
 
 @end

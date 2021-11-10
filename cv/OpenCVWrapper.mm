@@ -20,12 +20,12 @@ using namespace cv;
 
 @implementation OpenCVWrapper
 
-+ (UIImage *)displayCrop:(UIImage *)image {
++ (UIImage *)displayCrop:(UIImage *)image height:(float)height width:(float)width {
     cv::Mat mat;
     UIImageToMat(image, mat);
     
-    float heightMargin = 0.82;
-    float widthMargin = 0.94;
+    float heightMargin = 1 - height;
+    float widthMargin = 1 - width;
 
     cv::Rect rect(image.size.height * heightMargin / 2, image.size.width * widthMargin / 2, image.size.height - image.size.height * heightMargin, image.size.width - image.size.width * widthMargin);
     
@@ -42,12 +42,12 @@ using namespace cv;
     return [UIImage imageWithCGImage:[newImage CGImage] scale:[image scale] orientation: image.imageOrientation];
 }
 
-+ (UIImage *)extractCrop:(UIImage *)image {
++ (UIImage *)extractCrop:(UIImage *)image height:(float)height width:(float)width {
     cv::Mat mat;
     UIImageToMat(image, mat);
     
-    float heightMargin = 0.82;
-    float widthMargin = 0.94;
+    float heightMargin = 1 - height;
+    float widthMargin = 1 - width;
 
     cv::Rect croppedRect(image.size.height * heightMargin / 2, image.size.width * widthMargin / 2, image.size.height - image.size.height * heightMargin, image.size.width - image.size.width * widthMargin);
     

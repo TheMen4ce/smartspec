@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  spectrometer
 //
 //  Created by Dennis Briner on 28.10.21.
@@ -8,7 +8,7 @@
 import UIKit
 import Charts
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     
     // MARK: PROPERTIES
     
@@ -24,51 +24,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var cameraImage: UIImageView!
     @IBOutlet weak var croppedImage: UIImageView!
     
-    @IBOutlet weak var isoView: UIView!
-    @IBOutlet weak var focusView: UIView!
-    @IBOutlet weak var timeView: UIView!
-    
-    @IBOutlet weak var currentIsoLabel: UILabel!
-    @IBOutlet weak var currentTimeLabel: UILabel!
-    @IBOutlet weak var currentFocusLabel: UILabel!
-    @IBOutlet weak var isoPlusButton: UIButton!
-    @IBOutlet weak var isoMinusButton: UIButton!
-    @IBOutlet weak var timePlusButton: UIButton!
-    @IBOutlet weak var timeMinusButton: UIButton!
-    @IBOutlet weak var focusPlusButton: UIButton!
-    @IBOutlet weak var focusMinusButton: UIButton!
-    
-    // MARK: ACTIONS
-    
-    @IBAction func moreIsoButtonTapped(_ sender: Any) {
-        CaptureManager.shared.increaseIso()
+    @IBAction func cropSettingButtonTapped(_ sender: Any) {
+        if let controller = UIStoryboard(name: "CropSettings", bundle: nil).instantiateViewController(withIdentifier: "CropSettingsViewController") as? CropSettingsViewController {
+            present(controller, animated: true, completion: nil)
+        }
     }
     
-    @IBAction func lessIsoButtonTapped(_ sender: Any) {
-        CaptureManager.shared.decreaseIso()
+    @IBAction func cameraSettingsButtonTapped(_ sender: Any) {
+        if let controller = UIStoryboard(name: "CameraSettings", bundle: nil).instantiateViewController(withIdentifier: "CameraSettingsViewController") as? CameraSettingsViewController {
+            present(controller, animated: true, completion: nil)
+        }
     }
     
-    @IBAction func moreTimeButtonTapped(_ sender: Any) {
-        CaptureManager.shared.increaseTime()
-    }
-    
-    @IBAction func lessTimeButtonTapped(_ sender: Any) {
-        CaptureManager.shared.decreaseTime()
-    }
-    
-    @IBAction func moreFocusTapped(_ sender: Any) {
-        CaptureManager.shared.increaseFocus()
-    }
-    
-    @IBAction func lessFocusTapped(_ sender: Any) {
-        CaptureManager.shared.decreaseFocus()
-    }
     
     // MARK: LIFECYCLE
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func viewDidLoad() {        
         noCameraAccessView.isHidden = true
     }
     
@@ -95,9 +66,7 @@ class ViewController: UIViewController {
     private func updateNoCameraAccessLabel() {
         DispatchQueue.main.async {
             self.noCameraAccessView.isHidden = CaptureManager.shared.cameraAccessGranted
-            self.isoView.isHidden = !CaptureManager.shared.cameraAccessGranted
-            self.focusView.isHidden = !CaptureManager.shared.cameraAccessGranted
-            self.timeView.isHidden = !CaptureManager.shared.cameraAccessGranted
+            
             self.chartView.isHidden = !CaptureManager.shared.cameraAccessGranted
         }
     }
@@ -149,23 +118,12 @@ class ViewController: UIViewController {
 
 // MARK: EXTENSIONS
 
-extension ViewController: ImageProcessorSubscriber {
+extension MainViewController: ImageProcessorSubscriber {
     
     func newImageAvailable() {
         cameraImage.image = ImageProcessor.shared.image
         croppedImage.image = ImageProcessor.shared.croppedImage
         updateGraph()
-        
-        currentIsoLabel.text = String(format: "%.0f", CaptureManager.shared.device!.iso)
-        currentTimeLabel.text = String(format: "%.3f", CaptureManager.shared.device!.exposureDuration.seconds)
-        currentFocusLabel.text = String(format: "%.2f", CaptureManager.shared.device!.lensPosition)
-        
-        isoPlusButton.isHidden = CaptureManager.shared.isIsoAtMax
-        isoMinusButton.isHidden = CaptureManager.shared.isIsoAtMin
-        timePlusButton.isHidden = CaptureManager.shared.isTimeAtMax
-        timeMinusButton.isHidden = CaptureManager.shared.isTimeAtMin
-        focusPlusButton.isHidden = CaptureManager.shared.isFocusAtMax
-        focusMinusButton.isHidden = CaptureManager.shared.isFocusAtMin
     }
     
 }
