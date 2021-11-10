@@ -64,10 +64,12 @@
 			children = (
 				95C2D2F0272A911B00B1E8FD /* camera */,
 				95E1746927329DF5001FBC77 /* cv */,
-				955FFF9D272A8C310041819C /* spectrometer */,
-				955FFF9C272A8C310041819C /* Products */,
 				AAE5A96347F47A89115676DA /* Frameworks */,
 				04D98A8AC40378F0B96CE827 /* Pods */,
+				955FFF9C272A8C310041819C /* Products */,
+				955FFF9D272A8C310041819C /* spectrometer */,
+				95E65048273C03E6002B3B8A /* Storyboards */,
+				95E65049273C03F0002B3B8A /* ViewControllers */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,10 +86,7 @@
 			children = (
 				95C2D2F5272AC15500B1E8FD /* Util.swift */,
 				955FFF9E272A8C310041819C /* AppDelegate.swift */,
-				955FFFA2272A8C310041819C /* ViewController.swift */,
-				955FFFA4272A8C310041819C /* Main.storyboard */,
 				955FFFA7272A8C320041819C /* Assets.xcassets */,
-				955FFFA9272A8C320041819C /* LaunchScreen.storyboard */,
 				955FFFAC272A8C320041819C /* Info.plist */,
 			);
 			path = spectrometer;
@@ -110,6 +109,23 @@
 				95E1746A27329E26001FBC77 /* bridging-header.h */,
 			);
 			path = cv;
+			sourceTree = "<group>";
+		};
+		95E65048273C03E6002B3B8A /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				955FFFA4272A8C310041819C /* Main.storyboard */,
+				955FFFA9272A8C320041819C /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		95E65049273C03F0002B3B8A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				955FFFA2272A8C310041819C /* ViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		AAE5A96347F47A89115676DA /* Frameworks */ = {
