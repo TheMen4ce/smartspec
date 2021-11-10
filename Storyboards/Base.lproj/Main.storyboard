@@ -55,10 +55,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHZ-gr-51t" userLabel="Button Plus">
-                                <rect key="frame" x="319" y="587" width="40" height="40"/>
+                                <rect key="frame" x="299" y="567" width="60" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="NrN-Xk-MpM"/>
-                                    <constraint firstAttribute="height" constant="40" id="QOQ-nn-Ebx"/>
+                                    <constraint firstAttribute="width" constant="60" id="NrN-Xk-MpM"/>
+                                    <constraint firstAttribute="height" constant="60" id="QOQ-nn-Ebx"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="grid"/>
@@ -67,15 +67,27 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1uv-YF-wDz" userLabel="Button Plus">
-                                <rect key="frame" x="263" y="587" width="40" height="40"/>
+                                <rect key="frame" x="223" y="567" width="60" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="5yd-Sm-y7T"/>
-                                    <constraint firstAttribute="width" constant="40" id="vZV-gy-TBe"/>
+                                    <constraint firstAttribute="height" constant="60" id="5yd-Sm-y7T"/>
+                                    <constraint firstAttribute="width" constant="60" id="vZV-gy-TBe"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="calibrate"/>
+                                <connections>
+                                    <action selector="cameraSettingsButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TAO-jE-POJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qN9-6m-rCz" userLabel="Button Plus">
+                                <rect key="frame" x="147" y="567" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="BTT-V9-wFT"/>
+                                    <constraint firstAttribute="height" constant="60" id="Ptf-Co-yZ8"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="exposure"/>
                                 <connections>
-                                    <action selector="cameraSettingsButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TAO-jE-POJ"/>
+                                    <action selector="cameraSettingsButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="D6x-nu-9kk"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -85,9 +97,11 @@
                             <constraint firstItem="WT5-3i-Vme" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="7Af-pa-1oS"/>
                             <constraint firstItem="WT5-3i-Vme" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.15" id="DfS-gv-rSp"/>
                             <constraint firstItem="RkR-Sb-R4j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="FIU-pm-eXE"/>
+                            <constraint firstItem="1uv-YF-wDz" firstAttribute="leading" secondItem="qN9-6m-rCz" secondAttribute="trailing" constant="16" id="H4e-R7-lwI"/>
                             <constraint firstItem="n4B-g3-CK1" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.2" id="Hka-X4-wEE"/>
                             <constraint firstItem="vB3-jF-tfv" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="Ias-J3-clb"/>
                             <constraint firstItem="lHZ-gr-51t" firstAttribute="leading" secondItem="1uv-YF-wDz" secondAttribute="trailing" constant="16" id="M0Z-bX-b6K"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="qN9-6m-rCz" secondAttribute="bottom" constant="40" id="P9i-UG-mR8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RkR-Sb-R4j" secondAttribute="trailing" constant="20" id="VG4-Tb-56h"/>
                             <constraint firstItem="n4B-g3-CK1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VUh-aW-WcX"/>
                             <constraint firstItem="RkR-Sb-R4j" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YAC-IP-BFi"/>
@@ -117,6 +131,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="calibrate" width="512" height="512"/>
         <image name="exposure" width="512" height="512"/>
         <image name="grid" width="512" height="512"/>
         <image name="no-camera" width="256" height="256"/>
