@@ -91,17 +91,9 @@ class CaptureManager: NSObject {
                 try device!.lockForConfiguration() // and never unlock
                 device!.automaticallyAdjustsVideoHDREnabled = false // HDR may impact our measurements
                 
-                // To stop auto WB (but i think we want it on auto)
-                // let wbg = AVCaptureDevice.WhiteBalanceGains(redGain: 1, greenGain: 1, blueGain: 1) // WB will result in wrong colors
-                // device!.setWhiteBalanceModeLocked(with: wbg, completionHandler: nil)
-                
-                // To restrict frame rate (but i think we want it on auto)
-                // device?.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: 20)
-                // device?.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: 20)
-                
                 setFocusAt(factor: 0.8)
                 
-                // Note: Time will be set to 1/30 regardless of what is set here. Weird, but true!
+                // Note: Exposure defined here may be overriden. IDK why 🤷‍♂️
                 let initialIso = 600 > device!.activeFormat.maxISO ? device!.activeFormat.maxISO : 600
                 self.device!.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: 20), iso: initialIso) { _ in
                     print("ℹ️ Init exposure set!")
@@ -227,6 +219,7 @@ class CaptureManager: NSObject {
         }
     }
     
+    // Sometimes the desired exposure is not set by the API. This method just tries to reapply a slightly different setting until we're good.
     private func reapplyExposure() {
         print("🔄 reapplying exposure!", exposureToApply)
         switch exposureToApply {
@@ -280,7 +273,6 @@ extension CaptureManager: AVCaptureVideoDataOutputSampleBufferDelegate {
                 reapplyExposure()
             }
         }
-        
         
         if let outputImage = getImageFromSampleBuffer(sampleBuffer: sampleBuffer) {
             ImageProcessor.shared.process(image: outputImage)
