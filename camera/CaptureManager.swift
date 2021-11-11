@@ -13,17 +13,11 @@ class CaptureManager: NSObject {
     internal static let shared = CaptureManager()
     
     // MARK: PROPERTIES
-    
+
+    // exposed
     var device: AVCaptureDevice?
-    private var session = AVCaptureSession()
-    private var isExposing = false
     private(set) var cameraAccessGranted = false
     
-    private let colorSpace = CGColorSpace.init(name: CGColorSpace.linearSRGB) ?? CGColorSpaceCreateDeviceRGB()
-    private let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue | CGBitmapInfo.byteOrder32Little.rawValue)
-    
-    private var desired_iso: Float = 600
-    private var desired_time = 0.2
     private(set) var isIsoAtMin = false
     private(set) var isIsoAtMax = false
     private(set) var isTimeAtMin = false
@@ -31,8 +25,18 @@ class CaptureManager: NSObject {
     private(set) var isFocusAtMin = false
     private(set) var isFocusAtMax = false
     
+    // camera session
+    private var session = AVCaptureSession()
+    private let colorSpace = CGColorSpace.init(name: CGColorSpace.linearSRGB) ?? CGColorSpaceCreateDeviceRGB()
+    private let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue | CGBitmapInfo.byteOrder32Little.rawValue)
+    
+    // exposure
+    private let DEFAULT_FOCUS: Float = 0.8
+    private let DEFAULT_ISO: Float = 600
+    private let DEFAULT_TIME = CMTimeMake(value: 1, timescale: 20)
+    
+    private var isExposing = false
     private var newExposureApplied = false
-    private var exposureString = ""
     private var isoToApply: Float = 0
     private var timeToApply = CMTimeMake(value: 1, timescale: 1)
     private var isoBeforeApply: Float = 0
@@ -91,12 +95,22 @@ class CaptureManager: NSObject {
                 try device!.lockForConfiguration() // and never unlock
                 device!.automaticallyAdjustsVideoHDREnabled = false // HDR may impact our measurements
                 
-                setFocusAt(factor: 0.8)
+                let storedFocus = UserDefaults.standard.float(forKey: "focus")
+                setFocusAt(factor: storedFocus > 0 ? storedFocus : DEFAULT_FOCUS)
+
+                let storedIso = UserDefaults.standard.float(forKey: "iso")
+                var initialIso = storedIso > 0 ? storedIso : DEFAULT_ISO
+                initialIso = initialIso > device!.activeFormat.maxISO ? device!.activeFormat.maxISO : initialIso
                 
-                // Note: Exposure defined here may be overriden. IDK why 🤷‍♂️
-                let initialIso = 600 > device!.activeFormat.maxISO ? device!.activeFormat.maxISO : 600
-                self.device!.setExposureModeCustom(duration: CMTimeMake(value: 1, timescale: 20), iso: initialIso) { _ in
+                let storedTime = UserDefaults.standard.cmtime(forKey: "time") ?? DEFAULT_TIME
+                
+                self.device!.setExposureModeCustom(duration: storedTime, iso: initialIso) { _ in
                     print("ℹ️ Init exposure set!")
+                    // Note: Exposure duration defined above will be overriden. IDK why 🤷‍♂️
+                    // HACK: So we'll just apply it again after a sec 🥲
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                        self.applyNewExposure(newIso: self.device!.iso, newTime: storedTime)
+                    })
                 }
             } catch {
                 print("❌ Configuration Error! ❌")
@@ -147,6 +161,7 @@ class CaptureManager: NSObject {
         if device!.isFocusModeSupported(.locked) {
             device?.setFocusModeLocked(lensPosition: lensPosition) { _ in
                 print("👁 Focus set to:", lensPosition)
+                UserDefaults.standard.set(self.device!.lensPosition, forKey: "focus")
             }
         } else {
             print("❌ Adjusting focus is not supported! ❌")
@@ -200,7 +215,6 @@ class CaptureManager: NSObject {
     }
     
     private func applyNewExposure(newIso: Float, newTime: CMTime) {
-        print(exposureString)
         print("Apply new exposure | time:", String(format: "%.8f", newTime.seconds), "iso:", String(format: "%.6f", newIso))
         
         timeToApply = newTime
@@ -269,6 +283,8 @@ extension CaptureManager: AVCaptureVideoDataOutputSampleBufferDelegate {
             newExposureApplied = false
             if device!.iso != isoBeforeApply || device!.exposureDuration != timeBeforeApply {
                 print("✅ Exposure has actually changed!")
+                UserDefaults.standard.set(device!.iso, forKey: "iso")
+                UserDefaults.standard.set(device!.exposureDuration, forKey: "time")
             } else {
                 reapplyExposure()
             }
