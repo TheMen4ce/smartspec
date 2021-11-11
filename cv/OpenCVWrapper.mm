@@ -20,6 +20,23 @@ using namespace cv;
 
 @implementation OpenCVWrapper
 
++ (UIImage *)redBorder:(UIImage *)image {
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    
+    cv::Point tl = cv::Point(0, 0);
+    cv::Point tr = cv::Point(mat.cols, 0);
+    cv::Point br = cv::Point(mat.cols, mat.rows);
+    cv::Point bl = cv::Point(0, mat.rows);
+    
+    cv::line(mat, tl, tr, Scalar(255,0,0,255), 5, LINE_AA);
+    cv::line(mat, tr, br, Scalar(255,0,0,255), 5, LINE_AA);
+    cv::line(mat, br, bl, Scalar(255,0,0,255), 5, LINE_AA);
+    cv::line(mat, bl, tl, Scalar(255,0,0,255), 5, LINE_AA);
+    
+    return MatToUIImage(mat);
+}
+
 + (UIImage *)displayCrop:(UIImage *)image height:(float)height width:(float)width {
     cv::Mat mat;
     UIImageToMat(image, mat);
@@ -36,10 +53,8 @@ using namespace cv;
     cv::line(mat, tr, rect.br(), Scalar(255,0,0,255), 5, LINE_AA);
     cv::line(mat, rect.br(), bl, Scalar(255,0,0,255), 5, LINE_AA);
     cv::line(mat, bl, rect.tl(), Scalar(255,0,0,255), 5, LINE_AA);
-    
-    UIImage *newImage = MatToUIImage(mat);
-    
-    return [UIImage imageWithCGImage:[newImage CGImage] scale:[image scale] orientation: image.imageOrientation];
+        
+    return [UIImage imageWithCGImage:[MatToUIImage(mat) CGImage] scale:[image scale] orientation: image.imageOrientation];
 }
 
 + (UIImage *)extractCrop:(UIImage *)image height:(float)height width:(float)width {

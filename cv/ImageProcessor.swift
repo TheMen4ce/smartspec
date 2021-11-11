@@ -13,22 +13,8 @@ protocol ImageProcessorSubscriber {
 }
 
 class ImageProcessor {
-    private init() {
-        let storedCropWidth = UserDefaults.standard.float(forKey: "CropWidth")
-        let storedCropHeight = UserDefaults.standard.float(forKey: "CropHeight")
-        cropWidth = storedCropWidth > 0.01 ? storedCropWidth : DEFAULT_CROP_WIDTH
-        cropHeight = storedCropHeight > 0.1 ? storedCropHeight : DEFAULT_CROP_HEIGHT
-        
-        let storedLowerNm = UserDefaults.standard.float(forKey: "LowerNm")
-        lowerNm = storedLowerNm > 0 ? storedLowerNm : DEFAULT_LOWER_NM
-        let storedUpperNm = UserDefaults.standard.float(forKey: "UpperNm")
-        upperNm = storedUpperNm > 0 ? storedUpperNm : DEFAULT_UPPER_NM
-        
-        let storedLowerNmPosition = UserDefaults.standard.float(forKey: "LowerNmPosition")
-        lowerNmPosition = storedLowerNmPosition > 0 ? storedLowerNmPosition : DEFAULT_LOWER_NM_POSITION
-        let storedUpperNmPosition = UserDefaults.standard.float(forKey: "UpperNmPosition")
-        upperNmPosition = storedUpperNmPosition > 0 ? storedUpperNmPosition : DEFAULT_UPPER_NM_POSITION
-    }
+    
+    // MARK: PROPERTIES
     
     static let shared = ImageProcessor()
 
@@ -56,7 +42,9 @@ class ImageProcessor {
     private(set) var lowerNmPosition: Float = 0
     private(set) var upperNmPosition: Float = 0
     
-    private var count = 0 // defines sample rate
+    private var count = 0
+    
+    // MARK: PUBLIC
     
     func process(newImage: UIImage) {
         if !freeze {
@@ -65,7 +53,7 @@ class ImageProcessor {
         
         image = OpenCVWrapper.displayCrop(originalImage, height: cropHeight, width: cropWidth)
         
-        // save CPU by only analyzing every 10th frame
+        // Sample rate. Spare CPU by only analyzing every 10th frame
         if count % 10 == 0 {
             croppedImage = OpenCVWrapper.extractCrop(originalImage, height: cropHeight, width: cropWidth)
             hist = OpenCVWrapper.histogram(croppedImage)
@@ -73,6 +61,9 @@ class ImageProcessor {
             if isCalibrating && (lowerNmPosition > 0 || upperNmPosition > 0) {
                 croppedImage = OpenCVWrapper.displayCalibration(croppedImage, lowerNmPosition: lowerNmPosition, upperNmPosition: upperNmPosition)
             }
+            
+            croppedImage = OpenCVWrapper.redBorder(croppedImage)
+            
             count = 0
         }
         count += 1
@@ -120,6 +111,25 @@ class ImageProcessor {
     func setUpperNmPosition(newUpperNmPosition: Float) {
         upperNmPosition = newUpperNmPosition
         UserDefaults.standard.set(upperNmPosition, forKey: "UpperNmPosition")
+    }
+    
+    // MARK: PRIVATE
+    
+    private init() {
+        let storedCropWidth = UserDefaults.standard.float(forKey: "CropWidth")
+        let storedCropHeight = UserDefaults.standard.float(forKey: "CropHeight")
+        cropWidth = storedCropWidth > 0.01 ? storedCropWidth : DEFAULT_CROP_WIDTH
+        cropHeight = storedCropHeight > 0.1 ? storedCropHeight : DEFAULT_CROP_HEIGHT
+        
+        let storedLowerNm = UserDefaults.standard.float(forKey: "LowerNm")
+        lowerNm = storedLowerNm > 0 ? storedLowerNm : DEFAULT_LOWER_NM
+        let storedUpperNm = UserDefaults.standard.float(forKey: "UpperNm")
+        upperNm = storedUpperNm > 0 ? storedUpperNm : DEFAULT_UPPER_NM
+        
+        let storedLowerNmPosition = UserDefaults.standard.float(forKey: "LowerNmPosition")
+        lowerNmPosition = storedLowerNmPosition > 0 ? storedLowerNmPosition : DEFAULT_LOWER_NM_POSITION
+        let storedUpperNmPosition = UserDefaults.standard.float(forKey: "UpperNmPosition")
+        upperNmPosition = storedUpperNmPosition > 0 ? storedUpperNmPosition : DEFAULT_UPPER_NM_POSITION
     }
 
     private func publish() {

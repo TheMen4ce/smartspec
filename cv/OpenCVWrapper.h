@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OpenCVWrapper : NSObject
 
 
++ (UIImage *)redBorder:(UIImage *)image;
 + (UIImage *)displayCrop:(UIImage *)image height:(float)height width:(float)width;
 + (UIImage *)extractCrop:(UIImage *)image height:(float)height width:(float)width;
 + (UIImage *)displayCalibration:(UIImage *)image lowerNmPosition:(float)lowerNmPosition upperNmPosition:(float)upperNmPosition;
