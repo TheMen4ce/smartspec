@@ -16,6 +16,8 @@ class CalibrationViewController: UIViewController {
     @IBOutlet weak var lowerNmTextField: UITextField!
     @IBOutlet weak var upperNmTextField: UITextField!
     
+    @IBOutlet weak var viewBottomConstraint: NSLayoutConstraint!
+    
     // MARK: ACTIONS
     
     @IBAction func closeButtonTapped(_ sender: Any) {
@@ -32,14 +34,20 @@ class CalibrationViewController: UIViewController {
     }
     
     @IBAction func lowerNmChanged(_ sender: UITextField) {
-        if let lowerNm = Float(sender.text!) {
-            ImageProcessor.shared.setLowerNm(newLowerNm:  lowerNm)
+        let lowerNm = Float(sender.text!) ?? 0
+        if lowerNm > 0 {
+            ImageProcessor.shared.setLowerNm(newLowerNm: lowerNm)
+        } else {
+            lowerNmTextField.text = String(format: "%.0f", ImageProcessor.shared.lowerNm)
         }
     }
     
     @IBAction func upperNmChanged(_ sender: UITextField) {
-        if let upperNm = Float(sender.text!) {
+        let upperNm = Float(sender.text!) ?? 0
+        if upperNm > 0 {
             ImageProcessor.shared.setUpperNm(newUpperNm: upperNm)
+        } else {
+            upperNmTextField.text = String(format: "%.0f", ImageProcessor.shared.upperNm)
         }
     }
     
@@ -55,6 +63,9 @@ class CalibrationViewController: UIViewController {
         upperNmTextField.text = String(format: "%.0f", ImageProcessor.shared.upperNm)
         lowerNmPositionSlider.value = ImageProcessor.shared.lowerNmPosition
         upperNmPositionSlider.value = ImageProcessor.shared.upperNmPosition
+        
+        lowerNmTextField.delegate = self
+        upperNmTextField.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,4 +85,21 @@ class CalibrationViewController: UIViewController {
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
+}
+
+extension CalibrationViewController: UITextFieldDelegate {
+    
+    // used to slide up the content when showing keyboard
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.viewBottomConstraint.constant = -200
+        })
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.viewBottomConstraint.constant = 0
+        })
+    }
+
 }

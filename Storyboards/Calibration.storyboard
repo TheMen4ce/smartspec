@@ -135,6 +135,7 @@
                         <outlet property="lowerNmTextField" destination="Iiz-0O-kiM" id="aHs-aA-jTg"/>
                         <outlet property="upperNmPositionSlider" destination="TbE-43-ijB" id="olq-Nx-iRC"/>
                         <outlet property="upperNmTextField" destination="Cwd-tz-9sL" id="kg4-fr-95d"/>
+                        <outlet property="viewBottomConstraint" destination="AoI-Yk-VKR" id="ETi-M1-EM9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
