@@ -14,8 +14,10 @@ protocol ImageProcessorSubscriber {
 
 class ImageProcessor {
     private init() {
-        cropWidth = UserDefaults.standard.float(forKey: "CropWidth")
-        cropHeight = UserDefaults.standard.float(forKey: "CropHeight")
+        let storedCropWidth = UserDefaults.standard.float(forKey: "CropWidth")
+        let storedCropHeight = UserDefaults.standard.float(forKey: "CropHeight")
+        cropWidth = storedCropWidth > 0.01 ? storedCropWidth : DEFAULT_CROP_WIDTH
+        cropHeight = storedCropHeight > 0.1 ? storedCropHeight : DEFAULT_CROP_HEIGHT
     }
     
     static let shared = ImageProcessor()
@@ -25,6 +27,9 @@ class ImageProcessor {
     private(set) var image = UIImage()
     private(set) var croppedImage = UIImage()
     private(set) var hist: NSMutableArray = []
+    
+    private let DEFAULT_CROP_WIDTH: Float = 0.05
+    private let DEFAULT_CROP_HEIGHT: Float = 0.2
     
     private(set) var cropWidth: Float = 0
     private(set) var cropHeight: Float = 0
