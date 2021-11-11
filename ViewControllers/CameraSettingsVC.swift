@@ -81,7 +81,7 @@ class CameraSettingsViewController: UIViewController {
     
     private func updateCameraSettings() {
         currentIsoLabel.text = String(format: "%.0f", CaptureManager.shared.device!.iso)
-        currentTimeLabel.text = String(format: "%.3f", CaptureManager.shared.device!.exposureDuration.seconds)
+        currentTimeLabel.text = String(format: "%.3f", CaptureManager.shared.device!.exposureDuration.seconds) + " s"
         currentFocusLabel.text = String(format: "%.2f", CaptureManager.shared.device!.lensPosition)
         
         isoPlusButton.isHidden = CaptureManager.shared.isIsoAtMax
