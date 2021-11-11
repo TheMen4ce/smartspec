@@ -44,14 +44,17 @@
                                     <constraint firstItem="jH7-1C-TfP" firstAttribute="centerX" secondItem="RkR-Sb-R4j" secondAttribute="centerX" id="ova-PJ-9CM"/>
                                 </constraints>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vB3-jF-tfv">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vB3-jF-tfv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WT5-3i-Vme" userLabel="Cropped Image">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="WT5-3i-Vme" userLabel="Cropped Image">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="nIs-sv-oPw"/>
+                                </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4B-g3-CK1" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="100" width="375" height="133.5"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="133.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHZ-gr-51t" userLabel="Button Plus">
@@ -95,7 +98,6 @@
                         <color key="backgroundColor" name="background"/>
                         <constraints>
                             <constraint firstItem="WT5-3i-Vme" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="7Af-pa-1oS"/>
-                            <constraint firstItem="WT5-3i-Vme" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.15" id="DfS-gv-rSp"/>
                             <constraint firstItem="RkR-Sb-R4j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="FIU-pm-eXE"/>
                             <constraint firstItem="1uv-YF-wDz" firstAttribute="leading" secondItem="qN9-6m-rCz" secondAttribute="trailing" constant="16" id="H4e-R7-lwI"/>
                             <constraint firstItem="n4B-g3-CK1" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.2" id="Hka-X4-wEE"/>
@@ -108,14 +110,14 @@
                             <constraint firstItem="n4B-g3-CK1" firstAttribute="top" secondItem="WT5-3i-Vme" secondAttribute="bottom" id="bif-gX-fce"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="lHZ-gr-51t" secondAttribute="bottom" constant="40" id="gMf-Hl-DM5"/>
                             <constraint firstItem="n4B-g3-CK1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gw9-eV-b93"/>
-                            <constraint firstItem="WT5-3i-Vme" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="iuw-yd-Qly"/>
+                            <constraint firstItem="WT5-3i-Vme" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="iuw-yd-Qly"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lHZ-gr-51t" secondAttribute="trailing" constant="16" id="jCi-pq-w4H"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="1uv-YF-wDz" secondAttribute="bottom" constant="40" id="m9e-k2-xgB"/>
                             <constraint firstItem="vB3-jF-tfv" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="pX1-Qm-VG1"/>
                             <constraint firstItem="vB3-jF-tfv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="qyk-OC-Cdm"/>
                             <constraint firstAttribute="bottom" secondItem="vB3-jF-tfv" secondAttribute="bottom" id="r5G-J6-r0g"/>
                             <constraint firstItem="RkR-Sb-R4j" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="vWh-wK-tkz"/>
-                            <constraint firstItem="WT5-3i-Vme" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yYl-Rr-OMV"/>
+                            <constraint firstItem="WT5-3i-Vme" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yYl-Rr-OMV"/>
                         </constraints>
                     </view>
                     <connections>
@@ -137,6 +139,7 @@
         <image name="exposure" width="512" height="512"/>
         <image name="grid" width="512" height="512"/>
         <image name="no-camera" width="256" height="256"/>
+        <image name="placeholder" width="2" height="2"/>
         <namedColor name="background">
             <color red="0.074509803921568626" green="0.11764705882352941" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
