@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ig3-Cv-OKL">
-                                <rect key="frame" x="0.0" y="411" width="375" height="256"/>
+                                <rect key="frame" x="0.0" y="382" width="375" height="285"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUf-5e-NLR" userLabel="Close Button">
                                         <rect key="frame" x="319" y="16" width="40" height="40"/>
@@ -32,23 +32,22 @@
                                             <action selector="closeButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="rhc-si-2ta"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calibrate Known Wavelengths" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RkS-iK-fG8">
-                                        <rect key="frame" x="16" y="16" width="307" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="r6w-XA-eBJ"/>
-                                        </constraints>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RkS-iK-fG8">
+                                        <rect key="frame" x="16" y="16" width="209" height="53"/>
+                                        <string key="text">Calibrate Using
+Known Wavelengths</string>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <color key="textColor" white="0.84547580020000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="H2c-dP-eWe">
-                                        <rect key="frame" x="14" y="64" width="347" height="31"/>
+                                        <rect key="frame" x="14" y="93" width="347" height="31"/>
                                         <connections>
                                             <action selector="lowerNmPositionChanged:" destination="Y6W-OH-hqX" eventType="valueChanged" id="6og-ST-bHP"/>
                                         </connections>
                                     </slider>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="545" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iiz-0O-kiM">
-                                        <rect key="frame" x="167" y="102" width="41" height="34"/>
+                                        <rect key="frame" x="167" y="131" width="41" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="41" id="ez5-jO-5Nd"/>
                                         </constraints>
@@ -59,7 +58,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qyk-JP-37w">
-                                        <rect key="frame" x="212" y="107" width="28.5" height="24"/>
+                                        <rect key="frame" x="212" y="136" width="28.5" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="p1Q-ph-CDL"/>
                                         </constraints>
@@ -68,13 +67,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="TbE-43-ijB">
-                                        <rect key="frame" x="14" y="144" width="347" height="31"/>
+                                        <rect key="frame" x="14" y="173" width="347" height="31"/>
                                         <connections>
                                             <action selector="upperNmPositionChanged:" destination="Y6W-OH-hqX" eventType="valueChanged" id="dgo-L5-k8S"/>
                                         </connections>
                                     </slider>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="610" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cwd-tz-9sL">
-                                        <rect key="frame" x="167" y="182" width="41" height="34"/>
+                                        <rect key="frame" x="167" y="211" width="41" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="41" id="cAV-iA-VWM"/>
                                         </constraints>
@@ -85,7 +84,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jf8-GQ-Ccj">
-                                        <rect key="frame" x="212" y="187" width="28.5" height="24"/>
+                                        <rect key="frame" x="212" y="216" width="28.5" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="VwR-LR-oBk"/>
                                         </constraints>
