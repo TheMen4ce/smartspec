@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ig3-Cv-OKL">
-                                <rect key="frame" x="0.0" y="382" width="375" height="285"/>
+                                <rect key="frame" x="0.0" y="374" width="375" height="293"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUf-5e-NLR" userLabel="Close Button">
                                         <rect key="frame" x="319" y="16" width="40" height="40"/>
@@ -46,7 +46,7 @@ Known Wavelengths</string>
                                             <action selector="lowerNmPositionChanged:" destination="Y6W-OH-hqX" eventType="valueChanged" id="6og-ST-bHP"/>
                                         </connections>
                                     </slider>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="545" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iiz-0O-kiM">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="437" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iiz-0O-kiM">
                                         <rect key="frame" x="167" y="131" width="41" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="41" id="ez5-jO-5Nd"/>
@@ -67,13 +67,14 @@ Known Wavelengths</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="TbE-43-ijB">
-                                        <rect key="frame" x="14" y="173" width="347" height="31"/>
+                                        <rect key="frame" x="14" y="181" width="347" height="31"/>
+                                        <color key="tintColor" red="0.94933015109999996" green="0.35955392609999998" blue="0.28429368669999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <action selector="upperNmPositionChanged:" destination="Y6W-OH-hqX" eventType="valueChanged" id="dgo-L5-k8S"/>
                                         </connections>
                                     </slider>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="610" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cwd-tz-9sL">
-                                        <rect key="frame" x="167" y="211" width="41" height="34"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="612" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cwd-tz-9sL">
+                                        <rect key="frame" x="167" y="219" width="41" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="41" id="cAV-iA-VWM"/>
                                         </constraints>
@@ -84,7 +85,7 @@ Known Wavelengths</string>
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jf8-GQ-Ccj">
-                                        <rect key="frame" x="212" y="216" width="28.5" height="24"/>
+                                        <rect key="frame" x="212" y="224" width="28.5" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="VwR-LR-oBk"/>
                                         </constraints>
@@ -103,7 +104,7 @@ Known Wavelengths</string>
                                     <constraint firstItem="GUf-5e-NLR" firstAttribute="top" secondItem="Ig3-Cv-OKL" secondAttribute="top" constant="16" id="FET-nb-i1F"/>
                                     <constraint firstItem="RkS-iK-fG8" firstAttribute="top" secondItem="Ig3-Cv-OKL" secondAttribute="top" constant="16" id="IoJ-ZO-VPg"/>
                                     <constraint firstItem="Iiz-0O-kiM" firstAttribute="top" secondItem="H2c-dP-eWe" secondAttribute="bottom" constant="8" id="NXQ-Cm-zTo"/>
-                                    <constraint firstItem="TbE-43-ijB" firstAttribute="top" secondItem="Iiz-0O-kiM" secondAttribute="bottom" constant="8" id="NwZ-tf-2sr"/>
+                                    <constraint firstItem="TbE-43-ijB" firstAttribute="top" secondItem="Iiz-0O-kiM" secondAttribute="bottom" constant="16" id="NwZ-tf-2sr"/>
                                     <constraint firstItem="Iiz-0O-kiM" firstAttribute="centerX" secondItem="Ig3-Cv-OKL" secondAttribute="centerX" id="OD6-cw-iYD"/>
                                     <constraint firstItem="RkS-iK-fG8" firstAttribute="leading" secondItem="Ig3-Cv-OKL" secondAttribute="leading" constant="16" id="RS5-kQ-aGT"/>
                                     <constraint firstItem="TbE-43-ijB" firstAttribute="leading" secondItem="Ig3-Cv-OKL" secondAttribute="leading" constant="16" id="Rnf-ME-fX5"/>

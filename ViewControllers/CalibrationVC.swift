@@ -25,17 +25,24 @@ class CalibrationViewController: UIViewController {
     }
     
     @IBAction func lowerNmPositionChanged(_ sender: UISlider) {
-        print("ℹ️ lower nm position:", sender.value)
-        ImageProcessor.shared.setLowerNmPosition(newLowerNmPosition: sender.value)
+        if sender.value < ImageProcessor.shared.upperNmPosition {
+            ImageProcessor.shared.setLowerNmPosition(newLowerNmPosition: sender.value)
+        } else {
+            lowerNmPositionSlider.value = ImageProcessor.shared.lowerNmPosition
+        }
     }
     
     @IBAction func upperNmPositionChanged(_ sender: UISlider) {
-        ImageProcessor.shared.setUpperNmPosition(newUpperNmPosition: sender.value)
+        if sender.value > ImageProcessor.shared.lowerNmPosition {
+            ImageProcessor.shared.setUpperNmPosition(newUpperNmPosition: sender.value)
+        } else {
+            upperNmPositionSlider.value = ImageProcessor.shared.upperNmPosition
+        }
     }
     
     @IBAction func lowerNmChanged(_ sender: UITextField) {
         let lowerNm = Float(sender.text!) ?? 0
-        if lowerNm > 0 {
+        if lowerNm > 0 && lowerNm < ImageProcessor.shared.upperNm {
             ImageProcessor.shared.setLowerNm(newLowerNm: lowerNm)
         } else {
             lowerNmTextField.text = String(format: "%.0f", ImageProcessor.shared.lowerNm)
@@ -44,7 +51,7 @@ class CalibrationViewController: UIViewController {
     
     @IBAction func upperNmChanged(_ sender: UITextField) {
         let upperNm = Float(sender.text!) ?? 0
-        if upperNm > 0 {
+        if upperNm > 0 && upperNm > ImageProcessor.shared.lowerNm {
             ImageProcessor.shared.setUpperNm(newUpperNm: upperNm)
         } else {
             upperNmTextField.text = String(format: "%.0f", ImageProcessor.shared.upperNm)
@@ -102,4 +109,12 @@ extension CalibrationViewController: UITextFieldDelegate {
         })
     }
 
+    // limit input length to 3
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        
+        return updatedText.count <= 3
+    }
 }
