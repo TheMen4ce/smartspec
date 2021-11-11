@@ -61,6 +61,11 @@ class CameraSettingsViewController: UIViewController {
     
     // MARK: LIFECYCLE
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateCameraSettings()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -73,11 +78,8 @@ class CameraSettingsViewController: UIViewController {
         
         unsubscribeFromImageProcessor()
     }
-}
-
-extension CameraSettingsViewController: ImageProcessorSubscriber {
     
-    func newImageAvailable() {
+    private func updateCameraSettings() {
         currentIsoLabel.text = String(format: "%.0f", CaptureManager.shared.device!.iso)
         currentTimeLabel.text = String(format: "%.3f", CaptureManager.shared.device!.exposureDuration.seconds)
         currentFocusLabel.text = String(format: "%.2f", CaptureManager.shared.device!.lensPosition)
@@ -88,5 +90,12 @@ extension CameraSettingsViewController: ImageProcessorSubscriber {
         timeMinusButton.isHidden = CaptureManager.shared.isTimeAtMin
         focusPlusButton.isHidden = CaptureManager.shared.isFocusAtMax
         focusMinusButton.isHidden = CaptureManager.shared.isFocusAtMin
+    }
+}
+
+extension CameraSettingsViewController: ImageProcessorSubscriber {
+    
+    func newImageAvailable() {
+        updateCameraSettings()
     }
 }
