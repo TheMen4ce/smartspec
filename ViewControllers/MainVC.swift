@@ -103,24 +103,31 @@ class MainViewController: UIViewController {
     
     // MARK: CHART
     
-    private func updateGraph(){
-        if ImageProcessor.shared.hist.count < 1 {
+    private func updateGraph() {
+        let numberOfMeasurements = ImageProcessor.shared.hist.count
+        if numberOfMeasurements < 1 {
             return
         }
         
         var lineChartEntry = [ChartDataEntry]()
         
+        // calculate shift in perspective
         let nmDiff = ImageProcessor.shared.upperNm - ImageProcessor.shared.lowerNm
         let posDiff = ImageProcessor.shared.upperNmPosition - ImageProcessor.shared.lowerNmPosition
         
+        // calculate the range of the x-axis
         let leftNm = ImageProcessor.shared.lowerNm - nmDiff / posDiff * ImageProcessor.shared.lowerNmPosition
         let rightNm = ImageProcessor.shared.upperNm + nmDiff / posDiff * (1 - ImageProcessor.shared.upperNmPosition)
+        let xRange = rightNm - leftNm
         
-        let numberOfMeasurements = Float(ImageProcessor.shared.hist.count - 1)
-        for i in 0..<ImageProcessor.shared.hist.count {
-            let x = leftNm + Float(i) / numberOfMeasurements * (rightNm - leftNm)
+        let highestValue = ImageProcessor.shared.hist.value(forKeyPath: "@max.self") as! Double
+        
+        // interpolate values from measurement array into the x-axis
+        let arraySize = Float(numberOfMeasurements - 1)
+        for i in 0..<numberOfMeasurements {
+            let x = leftNm + Float(i) / arraySize * xRange
             
-            let value = ChartDataEntry(x: Double(x), y: ImageProcessor.shared.hist[i] as! Double)
+            let value = ChartDataEntry(x: Double(x), y: ImageProcessor.shared.hist[i] as! Double / highestValue)
             lineChartEntry.append(value)
         }
         
@@ -136,9 +143,8 @@ class MainViewController: UIViewController {
         chartData.setDrawValues(false) // don't show values when zooming in
 
         if ImageProcessor.shared.isCalibrating {
-            let max = ImageProcessor.shared.hist.value(forKeyPath: "@max.self") as! Double
-            chartData.addDataSet(getVerticalLine(color: NSUIColor.blue, x: Double(ImageProcessor.shared.lowerNm), top: max))
-            chartData.addDataSet(getVerticalLine(color: NSUIColor.red, x: Double(ImageProcessor.shared.upperNm), top: max))
+            chartData.addDataSet(getVerticalLine(color: NSUIColor.blue, x: Double(ImageProcessor.shared.lowerNm)))
+            chartData.addDataSet(getVerticalLine(color: NSUIColor.red, x: Double(ImageProcessor.shared.upperNm)))
         }
         
         chartView.data = chartData
@@ -152,14 +158,15 @@ class MainViewController: UIViewController {
         chartView.rightAxis.axisMinimum = 0 // Y-axis should start at 0
         chartView.legend.enabled = false // disable extra legend for each data set
         // chartView.xAxis.avoidFirstLastClippingEnabled = true // doesn't work
-        chartView.xAxis.setLabelCount(6, force: true) // to have MIN_NM to the left and MAX_NM to the right
+        // chartView.xAxis.setLabelCount(6, force: true) // to limit labels. leave this to auto for now
+        
     }
     
     // Hacky way to draw a vertical line in a chart
-    private func getVerticalLine(color: NSUIColor, x: Double, top: Double) -> LineChartDataSet {
+    private func getVerticalLine(color: NSUIColor, x: Double) -> LineChartDataSet {
         var chartDataEntry = [ChartDataEntry]()
         chartDataEntry.append(ChartDataEntry(x: x, y: 0))
-        chartDataEntry.append(ChartDataEntry(x: x, y: top))
+        chartDataEntry.append(ChartDataEntry(x: x, y: 1))
         
         let dataSet = LineChartDataSet(entries: chartDataEntry, label: "")
         dataSet.colors = [color]
