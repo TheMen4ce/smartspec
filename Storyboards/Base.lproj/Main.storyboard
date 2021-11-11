@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -55,9 +54,8 @@
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4B-g3-CK1" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="0.0" y="20" width="375" height="133.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHZ-gr-51t" userLabel="Button Plus">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHZ-gr-51t" userLabel="Crop Button">
                                 <rect key="frame" x="299" y="567" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="NrN-Xk-MpM"/>
@@ -69,7 +67,7 @@
                                     <action selector="cropSettingButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dp5-GL-hap"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1uv-YF-wDz" userLabel="Button Plus">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1uv-YF-wDz" userLabel="Calibration Button">
                                 <rect key="frame" x="223" y="567" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="5yd-Sm-y7T"/>
@@ -78,10 +76,10 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="calibrate"/>
                                 <connections>
-                                    <action selector="cameraSettingsButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TAO-jE-POJ"/>
+                                    <action selector="calibrationButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PNv-Zm-gRY"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qN9-6m-rCz" userLabel="Button Plus">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qN9-6m-rCz" userLabel="Camera Button">
                                 <rect key="frame" x="147" y="567" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="BTT-V9-wFT"/>
@@ -121,6 +119,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="calibrationButton" destination="1uv-YF-wDz" id="FH1-BX-xdG"/>
                         <outlet property="cameraImage" destination="vB3-jF-tfv" id="Vel-7Z-wgf"/>
                         <outlet property="cameraSettingsButton" destination="qN9-6m-rCz" id="WhO-SO-O5E"/>
                         <outlet property="chartView" destination="n4B-g3-CK1" id="D6i-2y-rb0"/>
@@ -143,8 +142,5 @@
         <namedColor name="background">
             <color red="0.074509803921568626" green="0.11764705882352941" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

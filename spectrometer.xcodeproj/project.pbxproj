@@ -13,6 +13,8 @@
 		955FFFA6272A8C310041819C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 955FFFA4272A8C310041819C /* Main.storyboard */; };
 		955FFFA8272A8C320041819C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 955FFFA7272A8C320041819C /* Assets.xcassets */; };
 		955FFFAB272A8C320041819C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 955FFFA9272A8C320041819C /* LaunchScreen.storyboard */; };
+		95C0C3C2273D0C5C0046D02B /* Calibration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95C0C3C1273D0C5C0046D02B /* Calibration.storyboard */; };
+		95C0C3C4273D0C6E0046D02B /* CalibrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C0C3C3273D0C6E0046D02B /* CalibrationVC.swift */; };
 		95C2D2F2272A913300B1E8FD /* CaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C2D2F1272A913300B1E8FD /* CaptureManager.swift */; };
 		95C2D2F4272A930700B1E8FD /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C2D2F3272A930700B1E8FD /* ImageProcessor.swift */; };
 		95C2D2F6272AC15500B1E8FD /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C2D2F5272AC15500B1E8FD /* Util.swift */; };
@@ -34,6 +36,8 @@
 		955FFFA7272A8C320041819C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		955FFFAA272A8C320041819C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		955FFFAC272A8C320041819C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95C0C3C1273D0C5C0046D02B /* Calibration.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calibration.storyboard; sourceTree = "<group>"; };
+		95C0C3C3273D0C6E0046D02B /* CalibrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationVC.swift; sourceTree = "<group>"; };
 		95C2D2F1272A913300B1E8FD /* CaptureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureManager.swift; sourceTree = "<group>"; };
 		95C2D2F3272A930700B1E8FD /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		95C2D2F5272AC15500B1E8FD /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 				955FFFA9272A8C320041819C /* LaunchScreen.storyboard */,
 				95E6504A273C0A1D002B3B8A /* CropSettings.storyboard */,
 				95E6504E273C1FEF002B3B8A /* CameraSettings.storyboard */,
+				95C0C3C1273D0C5C0046D02B /* Calibration.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 				955FFFA2272A8C310041819C /* MainVC.swift */,
 				95E6504C273C0B2F002B3B8A /* CropSettingsVC.swift */,
 				95E65050273C2004002B3B8A /* CameraSettingsVC.swift */,
+				95C0C3C3273D0C6E0046D02B /* CalibrationVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -213,6 +219,7 @@
 				955FFFA8272A8C320041819C /* Assets.xcassets in Resources */,
 				955FFFA6272A8C310041819C /* Main.storyboard in Resources */,
 				95E6504B273C0A1D002B3B8A /* CropSettings.storyboard in Resources */,
+				95C0C3C2273D0C5C0046D02B /* Calibration.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +275,7 @@
 				95E174742732A34C001FBC77 /* OpenCVWrapper.mm in Sources */,
 				955FFFA3272A8C310041819C /* MainVC.swift in Sources */,
 				955FFF9F272A8C310041819C /* AppDelegate.swift in Sources */,
+				95C0C3C4273D0C6E0046D02B /* CalibrationVC.swift in Sources */,
 				95C2D2F4272A930700B1E8FD /* ImageProcessor.swift in Sources */,
 				95E65051273C2004002B3B8A /* CameraSettingsVC.swift in Sources */,
 				95C2D2F6272AC15500B1E8FD /* Util.swift in Sources */,

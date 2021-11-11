@@ -54,6 +54,17 @@ using namespace cv;
     return MatToUIImage(mat(croppedRect));
 }
 
++ (UIImage *)displayCalibration:(UIImage *)image lowerNmPosition:(float)lowerNmPosition upperNmPosition:(float)upperNmPosition {
+    cv::Mat mat;
+    UIImageToMat(image, mat);
+    
+    cv::line(mat, cv::Point(image.size.width * lowerNmPosition, 0), cv::Point(image.size.width * lowerNmPosition, image.size.height), Scalar(0,0,255,255), 2, LINE_AA);
+    
+    cv::line(mat, cv::Point(image.size.width * upperNmPosition, 0), cv::Point(image.size.width * upperNmPosition, image.size.height), Scalar(255,0,0,255), 2, LINE_AA);
+    
+    return MatToUIImage(mat);
+}
+
 + (NSMutableArray *)histogram:(UIImage *)image {
     Mat mat, col_sum;
     UIImageToMat(image, mat);
