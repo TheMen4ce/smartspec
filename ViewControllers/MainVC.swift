@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var cameraSettingsButton: UIButton!
     @IBOutlet weak var cropSettingsButton: UIButton!
     @IBOutlet weak var calibrationButton: UIButton!
+    @IBOutlet weak var freezeButton: UIButton!
     
     @IBAction func cropSettingButtonTapped(_ sender: Any) {
         if let controller = UIStoryboard(name: "CropSettings", bundle: nil).instantiateViewController(withIdentifier: "CropSettingsViewController") as? CropSettingsViewController {
@@ -42,6 +43,16 @@ class MainViewController: UIViewController {
         }
     }
     
+    @IBAction func freezeButtonTapped(_ sender: Any) {
+        ImageProcessor.shared.freeze = !ImageProcessor.shared.freeze
+        
+        if ImageProcessor.shared.freeze {
+            freezeButton.setImage(UIImage(named: "play"), for: .normal)
+        } else {
+            freezeButton.setImage(UIImage(named: "pause"), for: .normal)
+        }
+        
+    }
     
     // MARK: LIFECYCLE
     

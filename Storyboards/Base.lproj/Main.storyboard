@@ -55,20 +55,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4B-g3-CK1" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="0.0" y="20" width="375" height="133.5"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHZ-gr-51t" userLabel="Crop Button">
-                                <rect key="frame" x="299" y="567" width="60" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="NrN-Xk-MpM"/>
-                                    <constraint firstAttribute="height" constant="60" id="QOQ-nn-Ebx"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="grid"/>
-                                <connections>
-                                    <action selector="cropSettingButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dp5-GL-hap"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1uv-YF-wDz" userLabel="Calibration Button">
-                                <rect key="frame" x="223" y="567" width="60" height="60"/>
+                                <rect key="frame" x="299" y="567" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="5yd-Sm-y7T"/>
                                     <constraint firstAttribute="width" constant="60" id="vZV-gy-TBe"/>
@@ -91,29 +79,56 @@
                                     <action selector="cameraSettingsButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="D6x-nu-9kk"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1J-mY-wzh" userLabel="Freeze Button">
+                                <rect key="frame" x="16" y="567" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="BVI-O5-Jw1"/>
+                                    <constraint firstAttribute="width" constant="60" id="l7r-k1-tv6"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="pause"/>
+                                <connections>
+                                    <action selector="freezeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bvo-hR-x9m"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHZ-gr-51t" userLabel="Crop Button">
+                                <rect key="frame" x="223" y="567" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="NrN-Xk-MpM"/>
+                                    <constraint firstAttribute="height" constant="60" id="QOQ-nn-Ebx"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="grid"/>
+                                <connections>
+                                    <action selector="cropSettingButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dp5-GL-hap"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="background"/>
                         <constraints>
                             <constraint firstItem="WT5-3i-Vme" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="7Af-pa-1oS"/>
+                            <constraint firstItem="A1J-mY-wzh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Cvt-Lj-4hO"/>
                             <constraint firstItem="RkR-Sb-R4j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="FIU-pm-eXE"/>
-                            <constraint firstItem="1uv-YF-wDz" firstAttribute="leading" secondItem="qN9-6m-rCz" secondAttribute="trailing" constant="16" id="H4e-R7-lwI"/>
                             <constraint firstItem="n4B-g3-CK1" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.2" id="Hka-X4-wEE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="A1J-mY-wzh" secondAttribute="bottom" constant="40" id="HsR-qr-AcI"/>
                             <constraint firstItem="vB3-jF-tfv" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="Ias-J3-clb"/>
-                            <constraint firstItem="lHZ-gr-51t" firstAttribute="leading" secondItem="1uv-YF-wDz" secondAttribute="trailing" constant="16" id="M0Z-bX-b6K"/>
+                            <constraint firstItem="1uv-YF-wDz" firstAttribute="leading" secondItem="lHZ-gr-51t" secondAttribute="trailing" constant="16" id="IyQ-2W-W5L"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="qN9-6m-rCz" secondAttribute="bottom" constant="40" id="P9i-UG-mR8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1uv-YF-wDz" secondAttribute="trailing" constant="16" id="SwA-i1-tLR"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RkR-Sb-R4j" secondAttribute="trailing" constant="20" id="VG4-Tb-56h"/>
                             <constraint firstItem="n4B-g3-CK1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VUh-aW-WcX"/>
                             <constraint firstItem="RkR-Sb-R4j" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YAC-IP-BFi"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="1uv-YF-wDz" secondAttribute="bottom" constant="40" id="Zwy-d2-pz3"/>
                             <constraint firstItem="n4B-g3-CK1" firstAttribute="top" secondItem="WT5-3i-Vme" secondAttribute="bottom" id="bif-gX-fce"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="lHZ-gr-51t" secondAttribute="bottom" constant="40" id="gMf-Hl-DM5"/>
                             <constraint firstItem="n4B-g3-CK1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gw9-eV-b93"/>
                             <constraint firstItem="WT5-3i-Vme" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="iuw-yd-Qly"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lHZ-gr-51t" secondAttribute="trailing" constant="16" id="jCi-pq-w4H"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="1uv-YF-wDz" secondAttribute="bottom" constant="40" id="m9e-k2-xgB"/>
                             <constraint firstItem="vB3-jF-tfv" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="pX1-Qm-VG1"/>
                             <constraint firstItem="vB3-jF-tfv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="qyk-OC-Cdm"/>
                             <constraint firstAttribute="bottom" secondItem="vB3-jF-tfv" secondAttribute="bottom" id="r5G-J6-r0g"/>
+                            <constraint firstItem="lHZ-gr-51t" firstAttribute="leading" secondItem="qN9-6m-rCz" secondAttribute="trailing" constant="16" id="tDq-lQ-aPG"/>
                             <constraint firstItem="RkR-Sb-R4j" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="vWh-wK-tkz"/>
                             <constraint firstItem="WT5-3i-Vme" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yYl-Rr-OMV"/>
                         </constraints>
@@ -125,12 +140,13 @@
                         <outlet property="chartView" destination="n4B-g3-CK1" id="D6i-2y-rb0"/>
                         <outlet property="cropSettingsButton" destination="lHZ-gr-51t" id="rJW-Jj-vsu"/>
                         <outlet property="croppedImage" destination="WT5-3i-Vme" id="yXe-Na-tal"/>
+                        <outlet property="freezeButton" destination="A1J-mY-wzh" id="Gyl-F9-KRl"/>
                         <outlet property="noCameraAccessView" destination="RkR-Sb-R4j" id="nmN-1V-CQ4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="64.955357142857139"/>
+            <point key="canvasLocation" x="130.40000000000001" y="64.31784107946028"/>
         </scene>
     </scenes>
     <resources>
@@ -138,6 +154,7 @@
         <image name="exposure" width="512" height="512"/>
         <image name="grid" width="512" height="512"/>
         <image name="no-camera" width="256" height="256"/>
+        <image name="pause" width="512" height="512"/>
         <image name="placeholder" width="2" height="2"/>
         <namedColor name="background">
             <color red="0.074509803921568626" green="0.11764705882352941" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

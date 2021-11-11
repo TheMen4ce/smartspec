@@ -34,6 +34,7 @@ class ImageProcessor {
 
     private var subscribers = Dictionary<String, ImageProcessorSubscriber>()
     
+    private var originalImage = UIImage()
     private(set) var image = UIImage()
     private(set) var croppedImage = UIImage()
     private(set) var hist: NSMutableArray = []
@@ -49,6 +50,7 @@ class ImageProcessor {
     private(set) var cropHeight: Float = 0
     
     var isCalibrating = false
+    var freeze = false
     private(set) var lowerNm: Float = 0
     private(set) var upperNm: Float = 0
     private(set) var lowerNmPosition: Float = 0
@@ -56,12 +58,16 @@ class ImageProcessor {
     
     private var count = 0 // defines sample rate
     
-    func process(image: UIImage) {
-        self.image = OpenCVWrapper.displayCrop(image, height: cropHeight, width: cropWidth)
+    func process(newImage: UIImage) {
+        if !freeze {
+            originalImage = newImage
+        }
+        
+        image = OpenCVWrapper.displayCrop(originalImage, height: cropHeight, width: cropWidth)
         
         // save CPU by only analyzing every 10th frame
         if count % 10 == 0 {
-            croppedImage = OpenCVWrapper.extractCrop(image, height: cropHeight, width: cropWidth)
+            croppedImage = OpenCVWrapper.extractCrop(originalImage, height: cropHeight, width: cropWidth)
             hist = OpenCVWrapper.histogram(croppedImage)
             
             if isCalibrating && (lowerNmPosition > 0 || upperNmPosition > 0) {

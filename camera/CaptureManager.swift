@@ -275,7 +275,7 @@ extension CaptureManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         
         if let outputImage = getImageFromSampleBuffer(sampleBuffer: sampleBuffer) {
-            ImageProcessor.shared.process(image: outputImage)
+            ImageProcessor.shared.process(newImage: outputImage)
         }
     }
 }
