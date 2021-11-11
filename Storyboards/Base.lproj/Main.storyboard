@@ -120,7 +120,9 @@
                     </view>
                     <connections>
                         <outlet property="cameraImage" destination="vB3-jF-tfv" id="Vel-7Z-wgf"/>
+                        <outlet property="cameraSettingsButton" destination="qN9-6m-rCz" id="WhO-SO-O5E"/>
                         <outlet property="chartView" destination="n4B-g3-CK1" id="D6i-2y-rb0"/>
+                        <outlet property="cropSettingsButton" destination="lHZ-gr-51t" id="rJW-Jj-vsu"/>
                         <outlet property="croppedImage" destination="WT5-3i-Vme" id="yXe-Na-tal"/>
                         <outlet property="noCameraAccessView" destination="RkR-Sb-R4j" id="nmN-1V-CQ4"/>
                     </connections>

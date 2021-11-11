@@ -23,6 +23,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var chartView: LineChartView!
     @IBOutlet weak var cameraImage: UIImageView!
     @IBOutlet weak var croppedImage: UIImageView!
+    @IBOutlet weak var cameraSettingsButton: UIButton!
+    @IBOutlet weak var cropSettingsButton: UIButton!
     
     @IBAction func cropSettingButtonTapped(_ sender: Any) {
         if let controller = UIStoryboard(name: "CropSettings", bundle: nil).instantiateViewController(withIdentifier: "CropSettingsViewController") as? CropSettingsViewController {
@@ -39,8 +41,12 @@ class MainViewController: UIViewController {
     
     // MARK: LIFECYCLE
     
-    override func viewDidLoad() {        
+    override func viewDidLoad() {
+        // hide everything in the beginning. Only unhide when cam access is given/not given.
         noCameraAccessView.isHidden = true
+        chartView.isHidden = true
+        cameraSettingsButton.isHidden = true
+        cropSettingsButton.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -68,6 +74,8 @@ class MainViewController: UIViewController {
             self.noCameraAccessView.isHidden = CaptureManager.shared.cameraAccessGranted
             
             self.chartView.isHidden = !CaptureManager.shared.cameraAccessGranted
+            self.cameraSettingsButton.isHidden = !CaptureManager.shared.cameraAccessGranted
+            self.cropSettingsButton.isHidden = !CaptureManager.shared.cameraAccessGranted
         }
     }
     
