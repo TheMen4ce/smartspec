@@ -62,12 +62,8 @@ class MainViewController: UIViewController {
     // MARK: LIFECYCLE
     
     override func viewDidLoad() {
-        // hide everything in the beginning. Only unhide when cam access is given/not given.
-        noCameraAccessView.isHidden = true
-        chartView.isHidden = true
-        cameraSettingsButton.isHidden = true
-        cropSettingsButton.isHidden = true
-        calibrationButton.isHidden = true
+        hideAccordingToCamPermissions()
+        noCameraAccessView.isHidden = true // prevents flashing at startupa
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,13 +88,17 @@ class MainViewController: UIViewController {
     
     private func updateNoCameraAccessLabel() {
         DispatchQueue.main.async {
-            self.noCameraAccessView.isHidden = CaptureManager.shared.cameraAccessGranted
-            
-            self.chartView.isHidden = !CaptureManager.shared.cameraAccessGranted
-            self.cameraSettingsButton.isHidden = !CaptureManager.shared.cameraAccessGranted
-            self.cropSettingsButton.isHidden = !CaptureManager.shared.cameraAccessGranted
-            self.calibrationButton.isHidden = !CaptureManager.shared.cameraAccessGranted
+            self.hideAccordingToCamPermissions()
         }
+    }
+    
+    private func hideAccordingToCamPermissions() {
+        noCameraAccessView.isHidden = CaptureManager.shared.cameraAccessGranted
+        chartView.isHidden = !CaptureManager.shared.cameraAccessGranted
+        cameraSettingsButton.isHidden = !CaptureManager.shared.cameraAccessGranted
+        cropSettingsButton.isHidden = !CaptureManager.shared.cameraAccessGranted
+        calibrationButton.isHidden = !CaptureManager.shared.cameraAccessGranted
+        freezeButton.isHidden = !CaptureManager.shared.cameraAccessGranted
     }
     
     private func getInfoText() -> String {
