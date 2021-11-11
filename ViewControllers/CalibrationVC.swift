@@ -44,6 +44,7 @@ class CalibrationViewController: UIViewController {
         let lowerNm = Float(sender.text!) ?? 0
         if lowerNm > 0 && lowerNm < ImageProcessor.shared.upperNm {
             ImageProcessor.shared.setLowerNm(newLowerNm: lowerNm)
+            lowerNmTextField.placeholder = String(format: "%.0f", lowerNm)
         } else {
             lowerNmTextField.text = String(format: "%.0f", ImageProcessor.shared.lowerNm)
         }
@@ -53,6 +54,7 @@ class CalibrationViewController: UIViewController {
         let upperNm = Float(sender.text!) ?? 0
         if upperNm > 0 && upperNm > ImageProcessor.shared.lowerNm {
             ImageProcessor.shared.setUpperNm(newUpperNm: upperNm)
+            upperNmTextField.placeholder = String(format: "%.0f", upperNm)
         } else {
             upperNmTextField.text = String(format: "%.0f", ImageProcessor.shared.upperNm)
         }
@@ -67,7 +69,9 @@ class CalibrationViewController: UIViewController {
         view.addGestureRecognizer(tapAnywhere)
         
         lowerNmTextField.text = String(format: "%.0f", ImageProcessor.shared.lowerNm)
+        lowerNmTextField.placeholder = String(format: "%.0f", ImageProcessor.shared.lowerNm)
         upperNmTextField.text = String(format: "%.0f", ImageProcessor.shared.upperNm)
+        upperNmTextField.placeholder = String(format: "%.0f", ImageProcessor.shared.upperNm)
         lowerNmPositionSlider.value = ImageProcessor.shared.lowerNmPosition
         upperNmPositionSlider.value = ImageProcessor.shared.upperNmPosition
         
@@ -99,7 +103,7 @@ extension CalibrationViewController: UITextFieldDelegate {
     // used to slide up the content when showing keyboard
     func textFieldDidBeginEditing(_ textField: UITextField) {
         UIView.animate(withDuration: 0.3, animations: {
-            self.viewBottomConstraint.constant = -200
+            self.viewBottomConstraint.constant = -(200 + self.view.safeAreaInsets.bottom)
         })
     }
 

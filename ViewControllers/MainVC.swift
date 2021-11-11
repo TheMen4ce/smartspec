@@ -43,13 +43,18 @@ class MainViewController: UIViewController {
         }
     }
     
-    @IBAction func freezeButtonTapped(_ sender: Any) {
+    @IBAction func freezeButtonTapped(_ sender: UIButton) {
         ImageProcessor.shared.freeze = !ImageProcessor.shared.freeze
         
         if ImageProcessor.shared.freeze {
-            freezeButton.setImage(UIImage(named: "play"), for: .normal)
+            UIView.transition(with: sender, duration: 0.5, options: .transitionFlipFromRight, animations: {
+                sender.setImage(UIImage(named: "play"), for: .normal)
+            })
         } else {
-            freezeButton.setImage(UIImage(named: "pause"), for: .normal)
+            UIView.transition(with: sender, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                sender.setImage(UIImage(named: "pause"), for: .normal)
+            })
+
         }
         
     }
