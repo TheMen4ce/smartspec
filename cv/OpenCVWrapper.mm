@@ -37,14 +37,15 @@ using namespace cv;
     return MatToUIImage(mat);
 }
 
-+ (UIImage *)displayCrop:(UIImage *)image height:(float)height width:(float)width {
++ (UIImage *)displayCrop:(UIImage *)image x_offset:(float)x_offset y_offset:(float)y_offset width:(float)width height:(float)height {
     cv::Mat mat;
     UIImageToMat(image, mat);
     
-    float heightMargin = 1 - height;
-    float widthMargin = 1 - width;
-
-    cv::Rect rect(image.size.height * heightMargin / 2, image.size.width * widthMargin / 2, image.size.height - image.size.height * heightMargin, image.size.width - image.size.width * widthMargin);
+    float center_x = image.size.height * (1 - height) / 2;
+    float center_y = image.size.width * (1 - width) / 2;
+    
+    // rect(x, y, w, h) but img is 90° rotated, also invert x_offset
+    cv::Rect rect(center_x * y_offset, center_y * (1-x_offset+1), image.size.height * height, image.size.width * width);
     
     cv::Point tr = cv::Point(rect.x + rect.width, rect.y);
     cv::Point bl = cv::Point(rect.x, rect.y + rect.height);
@@ -57,16 +58,17 @@ using namespace cv;
     return [UIImage imageWithCGImage:[MatToUIImage(mat) CGImage] scale:[image scale] orientation: image.imageOrientation];
 }
 
-+ (UIImage *)extractCrop:(UIImage *)image height:(float)height width:(float)width {
++ (UIImage *)extractCrop:(UIImage *)image x_offset:(float)x_offset y_offset:(float)y_offset width:(float)width height:(float)height {
     cv::Mat mat;
     UIImageToMat(image, mat);
     
-    float heightMargin = 1 - height;
-    float widthMargin = 1 - width;
-
-    cv::Rect croppedRect(image.size.height * heightMargin / 2, image.size.width * widthMargin / 2, image.size.height - image.size.height * heightMargin, image.size.width - image.size.width * widthMargin);
+    float center_x = image.size.height * (1 - height) / 2;
+    float center_y = image.size.width * (1 - width) / 2;
     
-    return MatToUIImage(mat(croppedRect));
+    // rect(x, y, w, h) but img is 90° rotated, also invert x_offset
+    cv::Rect rect(center_x * y_offset, center_y * (1-x_offset+1), image.size.height * height, image.size.width * width);
+    
+    return MatToUIImage(mat(rect));
 }
 
 + (UIImage *)displayCalibration:(UIImage *)image lowerNmPosition:(float)lowerNmPosition upperNmPosition:(float)upperNmPosition {

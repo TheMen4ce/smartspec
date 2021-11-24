@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (UIImage *)redBorder:(UIImage *)image;
-+ (UIImage *)displayCrop:(UIImage *)image height:(float)height width:(float)width;
-+ (UIImage *)extractCrop:(UIImage *)image height:(float)height width:(float)width;
++ (UIImage *)displayCrop:(UIImage *)image x_offset:(float)x_offset y_offset:(float)y_offset width:(float)width height:(float)height;
++ (UIImage *)extractCrop:(UIImage *)image x_offset:(float)x_offset y_offset:(float)y_offset width:(float)width height:(float)height;
 + (UIImage *)displayCalibration:(UIImage *)image lowerNmPosition:(float)lowerNmPosition upperNmPosition:(float)upperNmPosition;
 + (NSMutableArray *)histogram:(UIImage *)image;
 
