@@ -156,11 +156,10 @@ class MainViewController: UIViewController {
         
         chartView.backgroundColor = UIColor.white
         chartView.xAxis.labelPosition = .bottom // X-axis should be at the bottom
-        chartView.leftAxis.axisMinimum = 0 // Y-axis should start at 0
-        chartView.rightAxis.labelTextColor = UIColor.black // override since it would become white in dark mode
-        chartView.leftAxis.labelTextColor = UIColor.black // override since it would become white in dark mode
         chartView.xAxis.labelTextColor = UIColor.black // override since it would become white in dark mode
-        chartView.rightAxis.axisMinimum = 0 // Y-axis should start at 0
+        chartView.leftAxis.axisMinimum = 0 // Y-axis should start at 0
+        chartView.leftAxis.labelTextColor = UIColor.black // override since it would become white in dark mode
+        chartView.rightAxis.enabled = false // Don't show second Y-axis
         chartView.legend.enabled = false // disable extra legend for each data set
         // chartView.xAxis.avoidFirstLastClippingEnabled = true // doesn't work
         // chartView.xAxis.setLabelCount(6, force: true) // to limit labels. leave this to auto for now
