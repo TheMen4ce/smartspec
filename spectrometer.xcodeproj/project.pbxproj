@@ -433,13 +433,14 @@
 				DEVELOPMENT_TEAM = 4KW62DXD85;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = spectrometer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Spectrometer;
+				INFOPLIST_KEY_CFBundleDisplayName = Smartspec;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Smartspec uses the camera to analyze the light falling into it";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -466,7 +467,7 @@
 				DEVELOPMENT_TEAM = 4KW62DXD85;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = spectrometer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Spectrometer;
+				INFOPLIST_KEY_CFBundleDisplayName = Smartspec;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Spectrometer uses the camera to analyze the light falling into it";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
