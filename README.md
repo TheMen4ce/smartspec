@@ -67,7 +67,10 @@ Figure 2 shows the app in actions and describes its features. All actions taken 
     - Tests with an accurate and calibrated spectrometer would be required to determine the correct weighting of the pixel brightness.
     - Hint: changing the y-axis of the reference spectrometer to log scale might help to understand how this is done
 - Absolute Intensity
-  - Detailed tests would be needed to analyze if absolute intensity can be measured. This might be possible when combining the pixel intensities with the cameras exposure parameters. 
+  - Detailed tests would be needed to analyze if absolute intensity can be measured. This might be possible when combining the pixel intensities with the cameras exposure parameters.
+- Resolution
+  - When analysing a light source with very narrow peaks or peaks appearing very close together they might not be represented correctly in the spectrograph. The resolution could be improved by using a better attachment and by "tuning" the camera image.
+    - Tests would require an accurate and calibrated spectrometer with a high resolution
 - Spectrograph
   - Missing axis descriptions in the spectrum plot
     - At the time of writing the app, the Charts iOS library had no functionality to set axis descriptions
